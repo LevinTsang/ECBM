@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=75.0", "wheel"]
+build-backend = "setuptools.backends._legacy:_Backend"
+
+[project]
+name = "ECBM"
+version = "0.1.0"
+description = "ECBM Application - 基于PyQt6的通用桌面应用框架"
+authors = [
+    {name = "Levin Tsang"}
+]
+license = {text = "GPL-3.0-only"}
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "PyQt6>=6.11,<7.0",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Natural Language :: Chinese (Simplified)",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Software Development :: Libraries :: Application Frameworks",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-qt>=4.4",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+exclude = ["tests*", "logs*", "resources*"]
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = ["-v", "--tb=short", "--strict-markers"]
+log_cli = true
+log_cli_level = "INFO"

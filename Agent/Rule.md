@@ -23,9 +23,11 @@ description: 本文件的作用是规范各Agent的操作（包含读取其他Ag
 	5. 内容不得出现表情
 	6. 内容不得出现加粗、斜体等
 * 模板：各Agent在文件[Log_Agent.md](D:\UserFiles\PersonalLocalAIKnowledgeBase\Agent\Log_Agent.md)、[Bridge.md](D:\UserFiles\PersonalLocalAIKnowledgeBase\Agent\Bridge.md)中写入内容时，必须严格参照文件首部元数据下方的模板内容
+* 时间信息通过使用[GetTime.bat](D:\UserFiles\Project\ECBM\Agent\Gift\Tools\GetTime.bat)获取
 
 ## 日志要求
 1. 所有Agent在执行完自身任务后，均要在[日志文件](D:\UserFiles\Project\ECBM\Agent\Log_Agent.md)中撰写本次操作的日志概述，并严格按照文件首部的模板要求进行撰写
+2. 时间信息通过使用[GetTime.bat](D:\UserFiles\Project\ECBM\Agent\Gift\Tools\GetTime.bat)获取
 
 ## Agent行为边界
 ### 需求解析Agent
