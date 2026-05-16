@@ -1,0 +1,359 @@
+---
+title: Avatar
+description: A user identity component for displaying profile images, initials, or icon fallbacks with status indicators and group stacking.
+icon: User
+---
+
+import { Avatar, AvatarGroup } from "@work-rjkashyap/unified-ui";
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";
+import { Callout } from "fumadocs-ui/components/callout";
+
+## Basic
+
+A user identity component for displaying profile images, initials, or icon fallbacks. Supports status indicators, 5 sizes, 2 shapes, and group stacking.
+
+<PreviewCard
+  preview={
+    <div className="flex flex-col gap-6 items-center w-full">
+      <div className="flex gap-3 items-center justify-center">
+        <Avatar name="Alice Cooper" size="xs" />
+        <Avatar name="Bob Smith" size="sm" />
+        <Avatar name="Charlie Davis" size="md" />
+        <Avatar name="Diana Evans" size="lg" />
+        <Avatar name="Evan Foster" size="xl" />
+      </div>
+      <div className="flex gap-3 items-center justify-center">
+        <Avatar name="Alice Cooper" status="online" />
+        <Avatar name="Bob Smith" status="busy" />
+        <Avatar name="Charlie Davis" status="away" />
+        <Avatar name="Diana Evans" status="offline" />
+      </div>
+    </div>
+  }
+  code={`<Avatar name="Alice Cooper" size="xs" />
+<Avatar name="Bob Smith" size="sm" />
+<Avatar name="Charlie Davis" size="md" />
+<Avatar name="Diana Evans" size="lg" />
+<Avatar name="Evan Foster" size="xl" />
+
+<Avatar name="Alice Cooper" status="online" />
+<Avatar name="Bob Smith" status="busy" />
+<Avatar name="Charlie Davis" status="away" />
+<Avatar name="Diana Evans" status="offline" />`}
+
+/>
+
+## Installation
+
+Install the component via the CLI in one command.
+
+<Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
+<Tab value="npm">
+
+```bash
+npx @work-rjkashyap/unified-ui add avatar
+```
+
+</Tab>
+<Tab value="pnpm">
+
+```bash
+pnpm dlx @work-rjkashyap/unified-ui add avatar
+```
+
+</Tab>
+<Tab value="yarn">
+
+```bash
+npx @work-rjkashyap/unified-ui add avatar
+```
+
+</Tab>
+<Tab value="bun">
+
+```bash
+bunx @work-rjkashyap/unified-ui add avatar
+```
+
+</Tab>
+</Tabs>
+
+<Callout type="info">
+	If you haven't initialized your project yet, run `npx @work-rjkashyap/unified-ui init` first. See the [CLI docs](/docs/cli) for details.
+</Callout>
+
+## Or install the full package
+
+Use this approach if you prefer to install the entire design system as a dependency instead of copying individual components.
+
+<Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
+<Tab value="npm">
+
+```bash
+npm install @work-rjkashyap/unified-ui
+```
+
+</Tab>
+<Tab value="pnpm">
+
+```bash
+pnpm add @work-rjkashyap/unified-ui
+```
+
+</Tab>
+<Tab value="yarn">
+
+```bash
+yarn add @work-rjkashyap/unified-ui
+```
+
+</Tab>
+<Tab value="bun">
+
+```bash
+bun add @work-rjkashyap/unified-ui
+```
+
+</Tab>
+</Tabs>
+
+## Anatomy
+
+```tsx
+import {
+	Avatar,
+	AvatarGroup,
+} from "@work-rjkashyap/unified-ui";
+```
+
+## Basic Usage
+
+The Avatar component displays a user image. When no `src` is provided (or the image fails to load), it falls back to initials derived from the `name` prop, or a default user icon.
+
+```tsx
+// With image
+<Avatar src="/photo.jpg" alt="Jane Doe" />
+
+// With initials fallback
+<Avatar name="Jane Doe" />
+
+// Default icon fallback (no name or src)
+<Avatar />
+```
+
+## Sizes
+
+Five sizes are available ranging from extra small (24px) to extra large (64px).
+
+<PreviewCard
+	preview={
+		<div className="flex gap-3 items-end justify-center">
+			<Avatar name="XS" size="xs" />
+			<Avatar name="SM" size="sm" />
+			<Avatar name="MD" size="md" />
+			<Avatar name="LG" size="lg" />
+			<Avatar name="XL" size="xl" />
+		</div>
+	}
+	code={`<Avatar name="Jane" size="xs" />  {/* 24px */}
+<Avatar name="Jane" size="sm" />  {/* 32px */}
+<Avatar name="Jane" size="md" />  {/* 40px — default */}
+<Avatar name="Jane" size="lg" />  {/* 48px */}
+<Avatar name="Jane" size="xl" />  {/* 64px */}`}
+/>
+
+| Size | Dimensions | Use Case                       |
+| ---- | ---------- | ------------------------------ |
+| `xs` | 24×24px    | Inline mentions, compact lists |
+| `sm` | 32×32px    | Comment threads, table rows    |
+| `md` | 40×40px    | Default, navigation bars       |
+| `lg` | 48×48px    | Profile cards, headers         |
+| `xl` | 64×64px    | Profile pages, hero sections   |
+
+## Shapes
+
+Two shapes are supported: `circle` (default) and `square`.
+
+<PreviewCard
+	preview={
+		<div className="flex gap-4 items-center justify-center">
+			<Avatar name="Circle" shape="circle" size="lg" />
+			<Avatar name="Square" shape="square" size="lg" />
+		</div>
+	}
+	code={`<Avatar name="Jane Doe" shape="circle" />  {/* Default */}
+<Avatar name="Jane Doe" shape="square" />  {/* Rounded square */}`}
+/>
+
+## Initials Fallback
+
+When no `src` is provided (or the image fails to load), the component automatically generates initials from the `name` prop. It takes the first letter of the first and last words.
+
+<PreviewCard
+	preview={
+		<div className="flex gap-3 items-center justify-center">
+			<Avatar name="Jane Doe" size="lg" />
+			<Avatar name="Alice" size="lg" />
+			<Avatar name="Bob Charles Smith" size="lg" />
+		</div>
+	}
+	code={`<Avatar name="Jane Doe" />      {/* Shows "JD" */}
+<Avatar name="Alice" />          {/* Shows "A" */}
+<Avatar name="Bob Charles Smith" /> {/* Shows "BS" */}`}
+/>
+
+## Status Indicator
+
+Add a `status` prop to display a small colored dot indicating the user's availability.
+
+<PreviewCard
+	preview={
+		<div className="flex gap-4 items-center justify-center">
+			<Avatar name="Online" status="online" size="lg" />
+			<Avatar name="Busy" status="busy" size="lg" />
+			<Avatar name="Away" status="away" size="lg" />
+			<Avatar name="Offline" status="offline" size="lg" />
+		</div>
+	}
+	code={`<Avatar name="Jane" status="online" />   {/* Green dot */}
+<Avatar name="Jane" status="busy" />     {/* Red dot */}
+<Avatar name="Jane" status="away" />     {/* Yellow dot */}
+<Avatar name="Jane" status="offline" />  {/* Gray dot */}`}
+/>
+
+| Status    | Color                         | Meaning             |
+| --------- | ----------------------------- | ------------------- |
+| `online`  | Green (`--success`)  | User is active      |
+| `busy`    | Red (`--danger`)     | User is unavailable |
+| `away`    | Yellow (`--warning`) | User is idle        |
+| `offline` | Gray (`--muted`)     | User is offline     |
+
+## Avatar Group
+
+Use `AvatarGroup` to stack multiple avatars with a configurable overlap. When the number of avatars exceeds the `max` prop, a "+N" overflow indicator is shown.
+
+<PreviewCard
+	preview={
+		<div className="flex justify-center">
+			<AvatarGroup max={3}>
+				<Avatar name="Alice Cooper" />
+				<Avatar name="Bob Smith" />
+				<Avatar name="Charlie Davis" />
+				<Avatar name="Diana Evans" />
+				<Avatar name="Evan Foster" />
+			</AvatarGroup>
+		</div>
+	}
+	code={`<AvatarGroup max={3}>
+  <Avatar name="Alice Cooper" />
+  <Avatar name="Bob Smith" />
+  <Avatar name="Charlie Davis" />
+  <Avatar name="Diana Evans" />
+  <Avatar name="Evan Foster" />
+</AvatarGroup>
+{/* Shows Alice, Bob, Charlie, then "+2" */}`}
+/>
+
+### Group with Images
+
+<PreviewCard
+	preview={
+		<div className="flex justify-center">
+			<AvatarGroup max={4}>
+				<Avatar name="Alice" />
+				<Avatar name="Bob" />
+				<Avatar name="Charlie" />
+				<Avatar name="Diana" />
+				<Avatar name="Evan" />
+				<Avatar name="Fiona" />
+			</AvatarGroup>
+		</div>
+	}
+	code={`<AvatarGroup max={4}>
+  <Avatar src="/a.jpg" alt="Alice" />
+  <Avatar src="/b.jpg" alt="Bob" />
+  <Avatar src="/c.jpg" alt="Charlie" />
+  <Avatar src="/d.jpg" alt="Diana" />
+  <Avatar src="/e.jpg" alt="Evan" />
+  <Avatar src="/f.jpg" alt="Fiona" />
+</AvatarGroup>`}
+/>
+
+## Image Error Handling
+
+When a `src` is provided but the image fails to load, the Avatar gracefully falls back to initials (if `name` is set) or the default icon.
+
+<PreviewCard
+	preview={
+		<div className="flex gap-4 items-center justify-center">
+			<Avatar src="/broken-link.jpg" name="Jane Doe" size="lg" />
+			<Avatar src="/broken-link.jpg" alt="User" size="lg" />
+		</div>
+	}
+	code={`{/* If image fails, shows "JD" */}
+<Avatar src="/broken-link.jpg" name="Jane Doe" />
+
+{/* If image fails and no name, shows default user icon */}
+
+<Avatar src="/broken-link.jpg" alt="User" />`}
+/>
+
+## With Alt Text
+
+Always provide descriptive alt text for images via the `alt` prop, or use the `name` prop which doubles as accessible text.
+
+<PreviewCard
+	preview={
+		<div className="flex gap-4 items-center justify-center">
+			<Avatar name="Jane Doe" size="lg" />
+			<Avatar name="Jane Doe" size="lg" />
+		</div>
+	}
+	code={`{/* alt text from alt prop */}
+<Avatar src="/photo.jpg" alt="Jane Doe's profile picture" />
+
+{/* alt text from name prop */}
+
+<Avatar name="Jane Doe" />`}
+/>
+
+## Props
+
+### Avatar
+
+| Prop        | Type                                        | Default    | Description                                                   |
+| ----------- | ------------------------------------------- | ---------- | ------------------------------------------------------------- |
+| `src`       | `string`                                    | —          | URL of the avatar image.                                      |
+| `alt`       | `string`                                    | —          | Alt text for the image. Falls back to `name` if not provided. |
+| `name`      | `string`                                    | —          | User name used to generate initials fallback.                 |
+| `size`      | `"xs" \| "sm" \| "md" \| "lg" \| "xl"`      | `"md"`     | Size of the avatar.                                           |
+| `shape`     | `"circle" \| "square"`                      | `"circle"` | Shape of the avatar.                                          |
+| `status`    | `"online" \| "offline" \| "busy" \| "away"` | —          | Status indicator dot.                                         |
+| `className` | `string`                                    | —          | Additional CSS classes.                                       |
+
+### AvatarGroup
+
+| Prop        | Type                                   | Default | Description                                               |
+| ----------- | -------------------------------------- | ------- | --------------------------------------------------------- |
+| `max`       | `number`                               | —       | Maximum number of avatars to display before showing "+N". |
+| `size`      | `"xs" \| "sm" \| "md" \| "lg" \| "xl"` | `"md"`  | Size applied to all child avatars.                        |
+| `className` | `string`                               | —       | Additional CSS classes.                                   |
+
+## Accessibility
+
+- Images include an `alt` attribute (falls back to `name` if `alt` is not provided).
+- Initials fallback uses `role="img"` with an `aria-label` derived from `name`.
+- Status indicators have an `aria-label` describing the status (e.g., `"online"`).
+- The status dot itself is decorative — the accessible label is on the parent element.
+- The "+N" overflow indicator in `AvatarGroup` is announced to screen readers.
+
+## Design Tokens
+
+| Token                | Usage                             |
+| -------------------- | --------------------------------- |
+| `--muted`   | Initials/icon fallback background |
+| `--success` | Online status indicator           |
+| `--danger`  | Busy status indicator             |
+| `--warning` | Away status indicator             |
+| `--radius-full`   | Circle shape                      |
+| `--radius-md`     | Square shape border radius        |

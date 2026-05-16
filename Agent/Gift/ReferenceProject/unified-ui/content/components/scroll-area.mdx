@@ -1,0 +1,336 @@
+---
+title: ScrollArea
+description: A custom scrollbar container for consistent cross-browser scroll appearance. Built on Radix UI ScrollArea.
+icon: PanelTopDashed
+---
+
+import { ScrollArea, ScrollBar } from "@work-rjkashyap/unified-ui/components";
+import { Callout } from "fumadocs-ui/components/callout";
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";
+
+## Overview
+
+The `ScrollArea` component replaces native browser scrollbars with styled, consistent scrollbar tracks and thumbs that match the design system's visual language. Built on Radix UI's ScrollArea primitive for cross-browser consistency.
+
+---
+
+## Installation
+
+Install the component via the CLI in one command.
+
+<Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
+<Tab value="npm">
+
+```bash
+npx @work-rjkashyap/unified-ui add scroll-area
+```
+
+</Tab>
+<Tab value="pnpm">
+
+```bash
+pnpm dlx @work-rjkashyap/unified-ui add scroll-area
+```
+
+</Tab>
+<Tab value="yarn">
+
+```bash
+npx @work-rjkashyap/unified-ui add scroll-area
+```
+
+</Tab>
+<Tab value="bun">
+
+```bash
+bunx @work-rjkashyap/unified-ui add scroll-area
+```
+
+</Tab>
+</Tabs>
+
+<Callout type="info">
+	If you haven't initialized your project yet, run `npx @work-rjkashyap/unified-ui init` first. See the [CLI docs](/docs/cli) for details.
+</Callout>
+
+## Or install the full package
+
+Use this approach if you prefer to install the entire design system as a dependency instead of copying individual components.
+
+<Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
+<Tab value="npm">
+
+```bash
+npm install @work-rjkashyap/unified-ui
+```
+
+</Tab>
+<Tab value="pnpm">
+
+```bash
+pnpm add @work-rjkashyap/unified-ui
+```
+
+</Tab>
+<Tab value="yarn">
+
+```bash
+yarn add @work-rjkashyap/unified-ui
+```
+
+</Tab>
+<Tab value="bun">
+
+```bash
+bun add @work-rjkashyap/unified-ui
+```
+
+</Tab>
+</Tabs>
+
+## Anatomy
+
+```tsx
+import {
+	ScrollArea,
+	ScrollBar,
+} from "@work-rjkashyap/unified-ui";
+```
+
+## Examples
+
+### Vertical Scroll
+
+<PreviewCard
+	preview={
+		<div className="w-full max-w-sm">
+			<ScrollArea className="h-48 w-full rounded-md border border-fd-border">
+				<div className="p-4 space-y-4">
+					<p className="text-sm text-fd-foreground">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					<p className="text-sm text-fd-foreground">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+					<p className="text-sm text-fd-foreground">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+					<p className="text-sm text-fd-foreground">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+					<p className="text-sm text-fd-foreground">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
+					<p className="text-sm text-fd-foreground">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos.</p>
+				</div>
+			</ScrollArea>
+		</div>
+	}
+	code={`<ScrollArea className="h-48 w-full rounded-md border">
+  <div className="p-4 space-y-4">
+    <p>Lorem ipsum dolor sit amet...</p>
+    <p>Ut enim ad minim veniam...</p>
+    <p>Duis aute irure dolor...</p>
+    <p>Excepteur sint occaecat...</p>
+    <p>Sed ut perspiciatis...</p>
+    <p>Nemo enim ipsam voluptatem...</p>
+  </div>
+</ScrollArea>`}
+/>
+
+### Horizontal Scroll
+
+<PreviewCard
+	preview={
+		<div className="w-full max-w-sm">
+			<ScrollArea className="w-full rounded-md border border-fd-border" showHorizontal showVertical={false}>
+				<div className="flex gap-4 p-4 w-max">
+					{Array.from({ length: 12 }).map((_, i) => (
+						<div
+							key={i}
+							className="flex h-20 w-28 shrink-0 items-center justify-center rounded-md border border-fd-border bg-fd-muted text-sm font-medium"
+						>
+							Item {i + 1}
+						</div>
+					))}
+				</div>
+			</ScrollArea>
+		</div>
+	}
+	code={`<ScrollArea className="w-full rounded-md border" showHorizontal showVertical={false}>
+  <div className="flex gap-4 p-4 w-max">
+    {items.map((item, i) => (
+      <div key={i} className="flex h-20 w-28 shrink-0 items-center justify-center rounded-md border bg-muted">
+        Item {i + 1}
+      </div>
+    ))}
+  </div>
+</ScrollArea>`}
+/>
+
+### Scrollbar Sizes
+
+<PreviewCard
+	preview={
+		<div className="flex gap-4 w-full max-w-md">
+			<div className="flex-1">
+				<p className="text-xs font-medium text-fd-muted-foreground mb-2">Small (sm)</p>
+				<ScrollArea className="h-36 w-full rounded-md border border-fd-border" scrollbarSize="sm" type="always">
+					<div className="p-3 space-y-3">
+						{Array.from({ length: 10 }).map((_, i) => (
+							<p key={i} className="text-xs text-fd-foreground">List item {i + 1} — some content here</p>
+						))}
+					</div>
+				</ScrollArea>
+			</div>
+			<div className="flex-1">
+				<p className="text-xs font-medium text-fd-muted-foreground mb-2">Medium (md)</p>
+				<ScrollArea className="h-36 w-full rounded-md border border-fd-border" scrollbarSize="md" type="always">
+					<div className="p-3 space-y-3">
+						{Array.from({ length: 10 }).map((_, i) => (
+							<p key={i} className="text-xs text-fd-foreground">List item {i + 1} — some content here</p>
+						))}
+					</div>
+				</ScrollArea>
+			</div>
+		</div>
+	}
+	code={`{/* Small scrollbar */}
+<ScrollArea className="h-36 rounded-md border" scrollbarSize="sm" type="always">
+  <div className="p-3 space-y-3">
+    {items.map((_, i) => <p key={i}>List item {i + 1}</p>)}
+  </div>
+</ScrollArea>
+
+{/* Medium scrollbar (default) */}
+<ScrollArea className="h-36 rounded-md border" scrollbarSize="md" type="always">
+  <div className="p-3 space-y-3">
+    {items.map((_, i) => <p key={i}>List item {i + 1}</p>)}
+  </div>
+</ScrollArea>`}
+/>
+
+| Size | Track Width | Description                     |
+| ---- | ----------- | ------------------------------- |
+| `sm` | 6px         | Thin scrollbar for compact UIs  |
+| `md` | 10px        | Default scrollbar width         |
+
+### Visibility Types
+
+<PreviewCard
+	preview={
+		<div className="flex flex-col gap-4 w-full max-w-sm">
+			<div>
+				<p className="text-xs font-medium text-fd-muted-foreground mb-2">type="always" — scrollbar always visible</p>
+				<ScrollArea className="h-28 w-full rounded-md border border-fd-border" type="always">
+					<div className="p-3 space-y-2">
+						{Array.from({ length: 8 }).map((_, i) => (
+							<p key={i} className="text-xs text-fd-foreground">Always visible scrollbar — item {i + 1}</p>
+						))}
+					</div>
+				</ScrollArea>
+			</div>
+			<div>
+				<p className="text-xs font-medium text-fd-muted-foreground mb-2">type="hover" — scrollbar on hover (default)</p>
+				<ScrollArea className="h-28 w-full rounded-md border border-fd-border" type="hover">
+					<div className="p-3 space-y-2">
+						{Array.from({ length: 8 }).map((_, i) => (
+							<p key={i} className="text-xs text-fd-foreground">Hover to see scrollbar — item {i + 1}</p>
+						))}
+					</div>
+				</ScrollArea>
+			</div>
+		</div>
+	}
+	code={`{/* Always visible */}
+<ScrollArea className="h-28 rounded-md border" type="always">
+  {content}
+</ScrollArea>
+
+{/* Visible on hover (default) */}
+<ScrollArea className="h-28 rounded-md border" type="hover">
+  {content}
+</ScrollArea>
+
+{/* Visible during scroll only */}
+<ScrollArea className="h-28 rounded-md border" type="scroll">
+  {content}
+</ScrollArea>
+
+{/* Auto — visible when content overflows */}
+<ScrollArea className="h-28 rounded-md border" type="auto">
+  {content}
+</ScrollArea>`}
+/>
+
+### Both Scrollbars
+
+<PreviewCard
+	preview={
+		<div className="w-full max-w-xs">
+			<ScrollArea className="h-48 w-full rounded-md border border-fd-border" showHorizontal type="always">
+				<div className="p-4 w-[600px]">
+					<div className="grid grid-cols-6 gap-3">
+						{Array.from({ length: 36 }).map((_, i) => (
+							<div
+								key={i}
+								className="flex h-14 w-20 items-center justify-center rounded-md border border-fd-border bg-fd-muted text-xs font-medium"
+							>
+								{i + 1}
+							</div>
+						))}
+					</div>
+				</div>
+			</ScrollArea>
+		</div>
+	}
+	code={`<ScrollArea className="h-48 w-full rounded-md border" showHorizontal type="always">
+  <div className="p-4 w-[600px]">
+    <div className="grid grid-cols-6 gap-3">
+      {Array.from({ length: 36 }).map((_, i) => (
+        <div key={i} className="flex h-14 w-20 items-center justify-center rounded-md border bg-muted">
+          {i + 1}
+        </div>
+      ))}
+    </div>
+  </div>
+</ScrollArea>`}
+/>
+
+---
+
+## Props
+
+### ScrollArea
+
+| Prop               | Type                                        | Default   | Description                                                  |
+| ------------------ | ------------------------------------------- | --------- | ------------------------------------------------------------ |
+| `type`             | `"auto" \| "always" \| "scroll" \| "hover"` | `"hover"` | Scrollbar visibility behavior.                               |
+| `scrollbarSize`    | `"sm" \| "md"`                              | `"md"`    | Size of the scrollbar track.                                 |
+| `showVertical`     | `boolean`                                   | `true`    | Whether to show the vertical scrollbar.                      |
+| `showHorizontal`   | `boolean`                                   | `false`   | Whether to show the horizontal scrollbar.                    |
+| `viewportClassName`| `string`                                    | —         | Additional CSS classes for the viewport element.             |
+| `className`        | `string`                                    | —         | Additional CSS classes for the root element.                 |
+
+### ScrollBar
+
+| Prop          | Type                               | Default      | Description                          |
+| ------------- | ---------------------------------- | ------------ | ------------------------------------ |
+| `orientation` | `"vertical" \| "horizontal"`       | `"vertical"` | Orientation of the scrollbar.        |
+| `size`        | `"sm" \| "md"`                     | `"md"`       | Size of the scrollbar.               |
+| `className`   | `string`                           | —            | Additional CSS classes.              |
+
+---
+
+## Accessibility
+
+<Callout type="info">
+	The custom scrollbars are purely decorative. Keyboard scrolling and assistive technology use the native scrollable region underneath.
+</Callout>
+
+- **Keyboard scrolling** — Not intercepted; works natively via arrow keys, Page Up/Down, Home/End.
+- **Screen readers** — Announce the scrollable region naturally; custom scrollbar is invisible to assistive technology.
+- **Focus management** — Tab order and focus are preserved within the scrollable content.
+- **Touch devices** — Native touch scrolling is preserved; custom scrollbars are visual only.
+
+---
+
+## Design Tokens
+
+| Token                | Usage                          |
+| -------------------- | ------------------------------ |
+| `--border`           | Scrollbar thumb color          |
+| `--muted-foreground` | Scrollbar thumb hover color    |
+| `--muted`            | Scrollbar track hover tint     |
+| `--duration-fast`    | Transition speed for hover     |
+| `--easing-standard`  | Easing curve for transitions   |

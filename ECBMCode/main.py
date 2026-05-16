@@ -130,8 +130,10 @@ def _load_configuration(args: argparse.Namespace) -> ConfigManager:
         "window_width": 1024,
         "window_height": 768,
         "window_min_width": 800,
-        "window_min_height": 600,
+        "window_min_height": 500,
         "language": "zh_CN",
+        "theme_mode": "system",
+        "reduce_motion": False,
     }
 
     # 加载用户配置文件
@@ -237,13 +239,10 @@ def main() -> int:
         controller.initialize()
         logger.info("核心服务控制器初始化完成")
 
-        # 创建并配置主窗口
+        # 创建并配置主窗口（窗口尺寸在__init__中通过黄金比例计算）
         main_window = MainWindow()
         main_window.setup_ui()
         main_window.set_controller(controller)
-
-        # 加载全局QSS样式表
-        main_window.load_qss("base.qss")
 
         # 显示主窗口
         main_window.show()

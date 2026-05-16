@@ -1,0 +1,19 @@
+[2026-05-17 02:36:14][INFO][ECBM.main] ECBM 应用程序启动中...
+[2026-05-17 02:36:14][INFO][ECBM.BaseController] 控制器开始初始化所有服务...
+[2026-05-17 02:36:14][INFO][ECBM.BaseController] 控制器初始化完成，共 0 个服务
+[2026-05-17 02:36:14][INFO][ECBM.main] 核心服务控制器初始化完成
+[2026-05-17 02:36:14][INFO][ECBM.MainWindow] 主窗口UI初始化完成（新版三栏布局）
+[2026-05-17 02:36:14][INFO][ECBM.MainWindow] 业务控制器已注入: BaseController
+[2026-05-17 02:36:14][INFO][ECBM.main] 主窗口已显示，进入事件循环
+[2026-05-17 02:36:22][INFO][ECBM.MainWindow] 工具已选中: url_input
+[2026-05-17 02:36:22][INFO][ECBM.MainWindow] 工具已选中: convert_tasks
+[2026-05-17 02:36:23][INFO][ECBM.MainWindow] 工具已选中: settings
+[2026-05-17 02:36:23][INFO][ECBM.MainWindow] 工具已选中: file_explorer
+[2026-05-17 02:36:27][INFO][ECBM.MainWindow] 收到转换请求: {'output_path': 'C:\\Users\\Levin', 'format': 'md', 'source': '', 'content': ''}
+[2026-05-17 02:36:29][INFO][ECBM.MainWindow] 收到转换请求: {'output_path': 'C:\\Users\\Levin', 'format': 'md', 'source': '', 'content': ''}
+[2026-05-17 02:36:36][INFO][ECBM.MainWindow] 收到窗口关闭请求，开始优雅退出流程...
+[2026-05-17 02:36:36][INFO][ECBM.BaseController] 控制器开始销毁所有服务...
+[2026-05-17 02:36:36][INFO][ECBM.BaseController] 控制器所有服务销毁完成
+[2026-05-17 02:36:36][INFO][ECBM.MainWindow] 应用程序正常退出
+[2026-05-17 02:36:36][INFO][ECBM.main] 最后一个窗口已关闭，应用程序退出
+[2026-05-17 02:36:36][INFO][ECBM.main] 事件循环结束，退出码: 0

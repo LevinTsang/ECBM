@@ -66,8 +66,10 @@ def sample_config_dict() -> dict:
         "window_width": 1024,
         "window_height": 768,
         "window_min_width": 800,
-        "window_min_height": 600,
+        "window_min_height": 500,
         "language": "zh_CN",
+        "theme_mode": "system",
+        "reduce_motion": False,
     }
 
 

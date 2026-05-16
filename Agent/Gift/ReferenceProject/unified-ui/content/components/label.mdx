@@ -1,0 +1,254 @@
+---
+title: Label
+description: An accessible label component with required indicator, sizing, description text, and disabled state. Built on Radix UI Label.
+icon: Tag
+---
+
+import { Label } from "@work-rjkashyap/unified-ui/components";
+import { Callout } from "fumadocs-ui/components/callout";
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";
+
+## Overview
+
+The `Label` component provides an accessible `<label>` element for form controls. It supports required indicators, descriptions, multiple sizes, and disabled states. Built on Radix UI's Label primitive for proper accessibility semantics.
+
+---
+
+## Installation
+
+Install the component via the CLI in one command.
+
+<Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
+<Tab value="npm">
+
+```bash
+npx @work-rjkashyap/unified-ui add label
+```
+
+</Tab>
+<Tab value="pnpm">
+
+```bash
+pnpm dlx @work-rjkashyap/unified-ui add label
+```
+
+</Tab>
+<Tab value="yarn">
+
+```bash
+npx @work-rjkashyap/unified-ui add label
+```
+
+</Tab>
+<Tab value="bun">
+
+```bash
+bunx @work-rjkashyap/unified-ui add label
+```
+
+</Tab>
+</Tabs>
+
+<Callout type="info">
+	If you haven't initialized your project yet, run `npx @work-rjkashyap/unified-ui init` first. See the [CLI docs](/docs/cli) for details.
+</Callout>
+
+## Or install the full package
+
+Use this approach if you prefer to install the entire design system as a dependency instead of copying individual components.
+
+<Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
+<Tab value="npm">
+
+```bash
+npm install @work-rjkashyap/unified-ui
+```
+
+</Tab>
+<Tab value="pnpm">
+
+```bash
+pnpm add @work-rjkashyap/unified-ui
+```
+
+</Tab>
+<Tab value="yarn">
+
+```bash
+yarn add @work-rjkashyap/unified-ui
+```
+
+</Tab>
+<Tab value="bun">
+
+```bash
+bun add @work-rjkashyap/unified-ui
+```
+
+</Tab>
+</Tabs>
+
+## Anatomy
+
+```tsx
+import {
+	Label,
+	FormLabel,
+} from "@work-rjkashyap/unified-ui/components";
+```
+
+## Examples
+
+### Basic Usage
+
+<PreviewCard
+	preview={
+		<div className="flex flex-col gap-4 w-full max-w-sm">
+			<div className="flex flex-col gap-1.5">
+				<Label htmlFor="demo-name">Full name</Label>
+				<input id="demo-name" className="h-9 px-3 rounded-md border border-fd-border bg-fd-background text-sm" placeholder="Enter your name" />
+			</div>
+			<div className="flex flex-col gap-1.5">
+				<Label htmlFor="demo-email">Email address</Label>
+				<input id="demo-email" type="email" className="h-9 px-3 rounded-md border border-fd-border bg-fd-background text-sm" placeholder="you@example.com" />
+			</div>
+		</div>
+	}
+	code={`<Label htmlFor="name">Full name</Label>
+<Input id="name" placeholder="Enter your name" />
+
+<Label htmlFor="email">Email address</Label>
+<Input id="email" type="email" placeholder="you@example.com" />`}
+/>
+
+### Sizes
+
+<PreviewCard
+	preview={
+		<div className="flex flex-col gap-4 w-full max-w-sm">
+			<Label size="sm">Small label (12px)</Label>
+			<Label size="md">Medium label (14px, default)</Label>
+			<Label size="lg">Large label (14px, semibold)</Label>
+		</div>
+	}
+	code={`<Label size="sm">Small label (12px)</Label>
+<Label size="md">Medium label (14px, default)</Label>
+<Label size="lg">Large label (14px, semibold)</Label>`}
+/>
+
+| Size | Font Size | Weight     |
+| ---- | --------- | ---------- |
+| `sm` | 12px      | Medium     |
+| `md` | 14px      | Medium     |
+| `lg` | 14px      | Semibold   |
+
+### Required Indicator
+
+<PreviewCard
+	preview={
+		<div className="flex flex-col gap-4 w-full max-w-sm">
+			<div className="flex flex-col gap-1.5">
+				<Label htmlFor="req-name" required>Full name</Label>
+				<input id="req-name" className="h-9 px-3 rounded-md border border-fd-border bg-fd-background text-sm" placeholder="Required field" />
+			</div>
+			<div className="flex flex-col gap-1.5">
+				<Label htmlFor="req-email" required>Email address</Label>
+				<input id="req-email" type="email" className="h-9 px-3 rounded-md border border-fd-border bg-fd-background text-sm" placeholder="Required field" />
+			</div>
+		</div>
+	}
+	code={`<Label htmlFor="name" required>Full name</Label>
+<Input id="name" aria-required="true" placeholder="Required field" />
+
+<Label htmlFor="email" required>Email address</Label>
+<Input id="email" aria-required="true" placeholder="Required field" />`}
+/>
+
+### With Description
+
+<PreviewCard
+	preview={
+		<div className="flex flex-col gap-4 w-full max-w-sm">
+			<div className="flex flex-col gap-1.5">
+				<Label htmlFor="desc-bio">Bio</Label>
+				<textarea id="desc-bio" className="h-20 px-3 py-2 rounded-md border border-fd-border bg-fd-background text-sm resize-none" placeholder="Tell us about yourself" />
+			</div>
+			<div className="flex flex-col gap-1.5">
+				<Label htmlFor="desc-url">Website URL</Label>
+				<input id="desc-url" className="h-9 px-3 rounded-md border border-fd-border bg-fd-background text-sm" placeholder="https://example.com" />
+			</div>
+		</div>
+	}
+	code={`<Label htmlFor="bio">
+  Bio
+</Label>
+<Textarea id="bio" placeholder="Tell us about yourself" />
+
+<Label htmlFor="url">
+  Website URL
+</Label>
+<Input id="url" placeholder="https://example.com" />`}
+/>
+
+### Disabled State
+
+<PreviewCard
+	preview={
+		<div className="flex flex-col gap-4 w-full max-w-sm">
+			<div className="flex flex-col gap-1.5">
+				<Label htmlFor="dis-field" disabled>Locked field</Label>
+				<input id="dis-field" disabled className="h-9 px-3 rounded-md border border-fd-border bg-fd-background text-sm opacity-50 cursor-not-allowed" value="Cannot edit" readOnly />
+			</div>
+			<div className="flex flex-col gap-1.5">
+				<Label htmlFor="dis-desc" disabled>Organization name</Label>
+				<input id="dis-desc" disabled className="h-9 px-3 rounded-md border border-fd-border bg-fd-background text-sm opacity-50 cursor-not-allowed" value="Acme Corp" readOnly />
+			</div>
+		</div>
+	}
+	code={`<Label htmlFor="locked" disabled>Locked field</Label>
+<Input id="locked" disabled value="Cannot edit" />
+
+<Label htmlFor="org" disabled>
+  Organization name
+</Label>
+<Input id="org" disabled value="Acme Corp" />`}
+/>
+
+---
+
+## Props
+
+| Prop                   | Type        | Default | Description                                                    |
+| ---------------------- | ----------- | ------- | -------------------------------------------------------------- |
+| `size`                 | `"sm" \| "md" \| "lg"` | `"md"` | Size of the label text.                              |
+| `required`             | `boolean`   | `false` | Shows a red asterisk (*) after the label text.                 |
+| `disabled`             | `boolean`   | `false` | Reduces opacity and changes cursor.                            |
+| `description`          | `ReactNode` | —       | Helper text displayed below the label.                         |
+| `descriptionClassName` | `string`    | —       | Additional CSS classes for the description text.               |
+| `wrapperClassName`     | `string`    | —       | Additional CSS classes for the wrapper (when description set). |
+| `htmlFor`              | `string`    | —       | The `id` of the associated form control.                       |
+| `className`            | `string`    | —       | Additional CSS classes for the label element.                  |
+
+---
+
+## Accessibility
+
+<Callout type="info">
+	The required indicator is decorative (`aria-hidden`). Always set `aria-required="true"` on the associated input for screen reader support.
+</Callout>
+
+- **Semantic HTML** — Renders as a native `<label>` element via Radix UI's Label primitive.
+- **htmlFor linkage** — Clicking the label focuses the associated input.
+- **Required indicator** — Visual only; use `aria-required` on the control.
+- **Disabled state** — Visual only; disable the input itself for functional disabling.
+- **Peer-disabled** — Supports Tailwind's `peer-disabled` pattern for automatic styling when the input is disabled.
+
+---
+
+## Design Tokens
+
+| Token              | Usage                        |
+| ------------------ | ---------------------------- |
+| `--foreground`     | Label text color             |
+| `--danger`         | Required indicator color     |
+| `--muted-foreground` | Description text color     |

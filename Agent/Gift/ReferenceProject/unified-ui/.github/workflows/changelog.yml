@@ -1,0 +1,84 @@
+# ============================================================================
+# Automatic Changelog Generation
+# ============================================================================
+# On every push to `main`, this workflow:
+#   1. Scans new commits since the last git tag (or last changelog update)
+#   2. Parses Conventional Commit messages (feat:, fix:, refactor:, etc.)
+#   3. Prepends new entries into the [Unreleased] section of CHANGELOG.md
+#   4. Pushes the update to a dedicated branch (ci/changelog-update)
+#
+# IMPORTANT: This does NOT overwrite the hand-written changelog.
+# It only adds new commit entries to the [Unreleased] section.
+# Tagged releases (## [0.2.1], ## [0.2.0], etc.) are never touched.
+#
+# NOTE: Branch protection on `main` prevents direct pushes, so the update
+# is pushed to `ci/changelog-update` instead. Merge that branch manually
+# (or via auto-merge) when convenient.
+#
+# Requirements:
+#   - Commits follow Conventional Commits: https://www.conventionalcommits.org
+#   - GITHUB_TOKEN has write permissions (enabled below)
+# ============================================================================
+
+name: Changelog
+
+on:
+    push:
+        branches: [main]
+
+permissions:
+    contents: write
+
+jobs:
+    changelog:
+        name: Update Changelog
+        runs-on: ubuntu-latest
+
+        # Don't run on commits made by this workflow (prevent infinite loop)
+        if: >-
+            !contains(github.event.head_commit.message, '[skip ci]') &&
+            !contains(github.event.head_commit.message, 'chore(changelog)')
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+                  token: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: "20"
+
+            - name: Generate and prepend changelog entries
+              shell: bash
+              run: bash .github/scripts/generate-changelog.sh
+
+            - name: Check for changes
+              id: diff
+              run: |
+                  if git diff --quiet packages/unified-ui/CHANGELOG.md 2>/dev/null; then
+                    echo "changed=false" >> "$GITHUB_OUTPUT"
+                  else
+                    echo "changed=true" >> "$GITHUB_OUTPUT"
+                  fi
+
+            - name: Push changelog update to dedicated branch
+              if: steps.diff.outputs.changed == 'true'
+              continue-on-error: true
+              run: |
+                  git config user.name  "github-actions[bot]"
+                  git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+                  # Work on an isolated branch so we never touch main directly.
+                  # Force-reset to the latest main so the branch is always fast-forwardable.
+                  git checkout -B ci/changelog-update origin/main
+
+                  # Re-apply the changelog diff (the generate script already modified the
+                  # working tree, but we just switched branches — re-run it to be safe)
+                  bash .github/scripts/generate-changelog.sh
+
+                  git add packages/unified-ui/CHANGELOG.md
+                  git commit -m "chore(changelog): auto-update unreleased entries [skip ci]"
+                  git push --force-with-lease origin ci/changelog-update

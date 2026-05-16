@@ -1,0 +1,427 @@
+---
+title: Input
+description: A text input component with icons, clearable option, and validation states.
+icon: TextCursorInput
+---
+
+import { Input } from "@work-rjkashyap/unified-ui";
+import {
+	Search,
+	Mail,
+	Eye,
+	Lock,
+	User,
+	Link,
+	Phone,
+	Hash,
+	Globe,
+	AtSign,
+	X,
+} from "lucide-react";
+import { Callout } from "fumadocs-ui/components/callout";
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";
+
+## Overview
+
+The `Input` component is a production-ready text input for capturing user data. It supports 3 validation variants, 3 sizes, leading/trailing icons, a clearable option, and all standard HTML input types.
+
+---
+
+## Installation
+
+Install the component via the CLI in one command.
+
+<Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
+<Tab value="npm">
+
+```bash
+npx @work-rjkashyap/unified-ui add input
+```
+
+</Tab>
+<Tab value="pnpm">
+
+```bash
+pnpm dlx @work-rjkashyap/unified-ui add input
+```
+
+</Tab>
+<Tab value="yarn">
+
+```bash
+npx @work-rjkashyap/unified-ui add input
+```
+
+</Tab>
+<Tab value="bun">
+
+```bash
+bunx @work-rjkashyap/unified-ui add input
+```
+
+</Tab>
+</Tabs>
+
+<Callout type="info">
+	If you haven't initialized your project yet, run `npx @work-rjkashyap/unified-ui init` first. See the [CLI docs](/docs/cli) for details.
+</Callout>
+
+## Or install the full package
+
+Use this approach if you prefer to install the entire design system as a dependency instead of copying individual components.
+
+<Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
+<Tab value="npm">
+
+```bash
+npm install @work-rjkashyap/unified-ui
+```
+
+</Tab>
+<Tab value="pnpm">
+
+```bash
+pnpm add @work-rjkashyap/unified-ui
+```
+
+</Tab>
+<Tab value="yarn">
+
+```bash
+yarn add @work-rjkashyap/unified-ui
+```
+
+</Tab>
+<Tab value="bun">
+
+```bash
+bun add @work-rjkashyap/unified-ui
+```
+
+</Tab>
+</Tabs>
+
+## Anatomy
+
+```tsx
+import { Input } from "@work-rjkashyap/unified-ui";
+```
+
+## Examples
+
+### Variants
+
+<PreviewCard
+	preview={
+		<div className="flex flex-col gap-3 w-full max-w-xs">
+			<Input variant="default" placeholder="Default" />
+			<Input variant="error" placeholder="Error — validation failed" />
+			<Input
+				variant="success"
+				placeholder="Success — validation passed"
+			/>
+		</div>
+	}
+	code={`<Input variant="default" placeholder="Default" />
+<Input variant="error" placeholder="Error — validation failed" />
+<Input variant="success" placeholder="Success — validation passed" />`}
+/>
+
+### Sizes
+
+<PreviewCard
+	preview={
+		<div className="flex flex-col gap-4 w-full max-w-xs">
+			<Input size="sm" placeholder="Small (h-8)" />
+			<Input size="md" placeholder="Medium (h-9)" />
+			<Input size="lg" placeholder="Large (h-10)" />
+		</div>
+	}
+	code={`<Input size="sm" placeholder="Small (h-8)" />
+<Input size="md" placeholder="Medium (h-9)" />
+<Input size="lg" placeholder="Large (h-10)" />`}
+/>
+
+| Size | Height | Font Size |
+| ---- | ------ | --------- |
+| `sm` | 32px   | 12px      |
+| `md` | 36px   | 14px      |
+| `lg` | 40px   | 14px      |
+
+### With Icons
+
+<PreviewCard
+	preview={
+		<div className="flex flex-col gap-4 w-full max-w-xs">
+			<Input iconLeft={<Search />} placeholder="Search..." />
+			<Input iconRight={<Mail />} placeholder="Email address" />
+			<Input iconLeft={<User />} placeholder="Username" />
+			<Input
+				iconLeft={<Lock />}
+				iconRight={<Eye />}
+				placeholder="Password"
+				type="password"
+			/>
+			<Input iconLeft={<Globe />} placeholder="https://example.com" />
+		</div>
+	}
+	code={`import { Search, Mail, User, Lock, Eye, Globe } from "lucide-react";
+
+{/* Left icon */}
+
+<Input iconLeft={<Search />} placeholder="Search..." />
+
+{/* Right icon */}
+
+<Input iconRight={<Mail />} placeholder="Email address" />
+
+{/* Left icon */}
+
+<Input iconLeft={<User />} placeholder="Username" />
+
+{/* Both icons */}
+
+<Input
+	iconLeft={<Lock />}
+	iconRight={<Eye />}
+	placeholder="Password"
+	type="password"
+/>
+
+{/* URL input with icon */}
+
+<Input iconLeft={<Globe />} placeholder="https://example.com" />`}
+/>
+
+### States
+
+<PreviewCard
+	preview={
+		<div className="flex flex-col gap-4 w-full max-w-xs">
+			<Input placeholder="Enabled" />
+			<Input disabled placeholder="Disabled" />
+			<Input readOnly value="Read-only value" />
+		</div>
+	}
+	code={`<Input placeholder="Enabled" />
+<Input disabled placeholder="Disabled" />
+<Input readOnly value="Read-only value" />`}
+/>
+
+### Input Types
+
+<PreviewCard
+	preview={
+		<div className="flex flex-col gap-4 w-full max-w-xs">
+			<Input type="text" iconLeft={<User />} placeholder="Text" />
+			<Input type="email" iconLeft={<AtSign />} placeholder="Email" />
+			<Input type="password" iconLeft={<Lock />} placeholder="Password" />
+			<Input type="number" iconLeft={<Hash />} placeholder="Number" />
+			<Input
+				type="url"
+				iconLeft={<Globe />}
+				placeholder="https://example.com"
+			/>
+			<Input type="tel" iconLeft={<Phone />} placeholder="Phone number" />
+		</div>
+	}
+	code={`<Input type="text" iconLeft={<User />} placeholder="Text" />
+<Input type="email" iconLeft={<AtSign />} placeholder="Email" />
+<Input type="password" iconLeft={<Lock />} placeholder="Password" />
+<Input type="number" iconLeft={<Hash />} placeholder="Number" />
+<Input type="url" iconLeft={<Globe />} placeholder="https://example.com" />
+<Input type="tel" iconLeft={<Phone />} placeholder="Phone number" />`}
+/>
+
+### With Error Message
+
+<PreviewCard
+	preview={
+		<div className="flex flex-col gap-1.5 w-full max-w-xs">
+			<label
+				htmlFor="email-input"
+				className="text-sm font-medium text-foreground"
+			>
+				Email
+			</label>
+			<Input
+				id="email-input"
+				variant="error"
+				iconLeft={<Mail />}
+				placeholder="you@example.com"
+				aria-describedby="email-error"
+			/>
+			<span id="email-error" className="block text-xs text-danger">
+				Please enter a valid email address.
+			</span>
+		</div>
+	}
+	code={`<label htmlFor="email-input" className="text-sm font-medium">
+  Email
+</label>
+<Input
+  id="email-input"
+  variant="error"
+  iconLeft={<Mail />}
+  placeholder="you@example.com"
+  aria-describedby="email-error"
+/>
+<p id="email-error" className="text-xs text-danger">
+  Please enter a valid email address.
+</p>`}
+/>
+
+### With Success Message
+
+<PreviewCard
+	preview={
+		<div className="flex flex-col gap-1.5 w-full max-w-xs">
+			<label
+				htmlFor="username-input"
+				className="text-sm font-medium text-foreground"
+			>
+				Username
+			</label>
+			<Input
+				id="username-input"
+				variant="success"
+				iconLeft={<User />}
+				defaultValue="unified_user"
+				aria-describedby="username-success"
+			/>
+			<span
+				id="username-success"
+				className="block text-xs text-success"
+			>
+				Username is available!
+			</span>
+		</div>
+	}
+	code={`<label htmlFor="username-input" className="text-sm font-medium">
+  Username
+</label>
+<Input
+  id="username-input"
+  variant="success"
+  iconLeft={<User />}
+  value="unified_user"
+  aria-describedby="username-success"
+/>
+<p id="username-success" className="text-xs text-success">
+  Username is available!
+</p>`}
+/>
+
+### Combined Features
+
+<PreviewCard
+	preview={
+		<div className="flex flex-col gap-5 w-full max-w-xs">
+			<div className="flex flex-col gap-1.5">
+				<label className="text-sm font-medium text-foreground">
+					Search
+				</label>
+				<Input
+					size="sm"
+					iconLeft={<Search />}
+					placeholder="Search users..."
+				/>
+			</div>
+			<div className="flex flex-col gap-1.5">
+				<label className="text-sm font-medium text-foreground">
+					Email
+				</label>
+				<Input
+					iconLeft={<Mail />}
+					variant="error"
+					placeholder="you@example.com"
+				/>
+				<span className="block text-xs text-danger">
+					This email is already taken.
+				</span>
+			</div>
+			<div className="flex flex-col gap-1.5">
+				<label className="text-sm font-medium text-foreground">
+					Website
+				</label>
+				<Input
+					size="lg"
+					iconLeft={<Globe />}
+					iconRight={<Link />}
+					variant="success"
+					defaultValue="https://unified-ui.dev"
+				/>
+			</div>
+		</div>
+	}
+	code={`{/* Small search input */}
+<Input size="sm" iconLeft={<Search />} placeholder="Search users..." />
+
+{/* Error state with message */}
+
+<Input iconLeft={<Mail />} variant="error" placeholder="you@example.com" />
+<p className="text-xs text-danger">This email is already taken.</p>
+
+{/* Large success input with both icons */}
+
+<Input
+  size="lg"
+  iconLeft={<Globe />}
+  iconRight={<Link />}
+  variant="success"
+  value="https://unified-ui.dev"
+/>`}
+/>
+
+---
+
+## Props
+
+| Prop               | Type                                | Default     | Description                                              |
+| ------------------ | ----------------------------------- | ----------- | -------------------------------------------------------- |
+| `variant`          | `"default" \| "error" \| "success"` | `"default"` | Visual variant for validation state.                     |
+| `size`             | `"sm" \| "md" \| "lg"`              | `"md"`      | Size of the input. Matches Button height scale.          |
+| `iconLeft`         | `ReactNode`                         | —           | Icon displayed on the left side.                         |
+| `iconRight`        | `ReactNode`                         | —           | Icon displayed on the right side.                        |
+| `clearable`        | `boolean`                           | `false`     | Show a clear button when the input has a value.          |
+| `onClear`          | `() => void`                        | —           | Callback when the clear button is clicked.               |
+| `wrapperClassName` | `string`                            | —           | CSS classes for the outer wrapper (when icons are used). |
+| `disabled`         | `boolean`                           | `false`     | Disables the input.                                      |
+| `readOnly`         | `boolean`                           | `false`     | Makes the input read-only.                               |
+| `className`        | `string`                            | —           | Additional CSS classes for the input element.            |
+
+All standard `<input>` HTML attributes are also supported.
+
+---
+
+## Accessibility
+
+<Callout type="info">
+	Always pair error/success variants with descriptive text linked via
+	`aria-describedby` for screen reader users.
+</Callout>
+
+- **Error variant** automatically sets `aria-invalid="true"` unless explicitly overridden.
+- Use `aria-describedby` to link the input to error/helper text elements.
+- Disabled inputs set both the `disabled` attribute and `aria-disabled`.
+- The clear button has `aria-label="Clear input"` and is excluded from tab order (`tabIndex={-1}`).
+- Focus ring is visible on keyboard navigation only (`focus-visible`).
+- Icons are marked `aria-hidden="true"` since they are decorative.
+
+---
+
+## Design Tokens
+
+The Input uses the following design system tokens:
+
+| Token                            | Usage                            |
+| -------------------------------- | -------------------------------- |
+| `--border`              | Default border color             |
+| `--danger`              | Error variant border             |
+| `--success`             | Success variant border           |
+| `--muted-foreground`    | Placeholder and icon color       |
+| `--disabled`            | Disabled background              |
+| `--disabled-foreground` | Disabled text color              |
+| `--radius-md`                 | Border radius                    |
+| `--duration-fast`             | Transition speed for focus/hover |
+| `--easing-standard`             | Easing curve for transitions     |

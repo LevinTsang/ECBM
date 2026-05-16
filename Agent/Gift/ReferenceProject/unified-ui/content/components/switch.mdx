@@ -1,0 +1,278 @@
+---
+title: Switch
+description: A toggle switch component with spring animation, label support, and configurable label position.
+icon: ToggleLeft
+---
+
+import { Switch } from "@work-rjkashyap/unified-ui";
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";
+import { Callout } from "fumadocs-ui/components/callout";
+
+## Overview
+
+The `Switch` component is a toggle for binary on/off settings. Built on Radix UI with spring animation via Framer Motion. Supports labels, descriptions, two sizes, and configurable label position.
+
+---
+
+## Installation
+
+Install the component via the CLI in one command.
+
+<Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
+<Tab value="npm">
+
+```bash
+npx @work-rjkashyap/unified-ui add switch
+```
+
+</Tab>
+<Tab value="pnpm">
+
+```bash
+pnpm dlx @work-rjkashyap/unified-ui add switch
+```
+
+</Tab>
+<Tab value="yarn">
+
+```bash
+npx @work-rjkashyap/unified-ui add switch
+```
+
+</Tab>
+<Tab value="bun">
+
+```bash
+bunx @work-rjkashyap/unified-ui add switch
+```
+
+</Tab>
+</Tabs>
+
+<Callout type="info">
+	If you haven't initialized your project yet, run `npx @work-rjkashyap/unified-ui init` first. See the [CLI docs](/docs/cli) for details.
+</Callout>
+
+## Or install the full package
+
+Use this approach if you prefer to install the entire design system as a dependency instead of copying individual components.
+
+<Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
+<Tab value="npm">
+
+```bash
+npm install @work-rjkashyap/unified-ui
+```
+
+</Tab>
+<Tab value="pnpm">
+
+```bash
+pnpm add @work-rjkashyap/unified-ui
+```
+
+</Tab>
+<Tab value="yarn">
+
+```bash
+yarn add @work-rjkashyap/unified-ui
+```
+
+</Tab>
+<Tab value="bun">
+
+```bash
+bun add @work-rjkashyap/unified-ui
+```
+
+</Tab>
+</Tabs>
+
+## Anatomy
+
+```tsx
+import { Switch } from "@work-rjkashyap/unified-ui";
+```
+
+## Examples
+
+### Basic Usage
+
+<PreviewCard
+	preview={
+		<div className="flex flex-col gap-4 items-start">
+			<Switch label="Notifications" />
+			<Switch label="Dark mode" defaultChecked />
+		</div>
+	}
+	code={`<Switch label="Notifications" />
+<Switch label="Dark mode" defaultChecked />`}
+/>
+
+### Sizes
+
+<PreviewCard
+	preview={
+		<div className="flex flex-col gap-4 items-start">
+			<Switch size="sm" label="Small switch" />
+			<Switch size="md" label="Medium switch (default)" />
+		</div>
+	}
+	code={`<Switch size="sm" label="Small switch" />
+<Switch size="md" label="Medium switch (default)" />`}
+/>
+
+### Label Position
+
+<PreviewCard
+	preview={
+		<div className="flex flex-col gap-4 items-start">
+			<Switch label="Right label (default)" labelPosition="right" />
+			<Switch label="Left label" labelPosition="left" />
+		</div>
+	}
+	code={`<Switch label="Right label (default)" labelPosition="right" />
+<Switch label="Left label" labelPosition="left" />`}
+/>
+
+### With Description
+
+<PreviewCard
+	preview={
+		<div className="flex flex-col gap-4 items-start w-full max-w-sm">
+			<Switch
+				label="Push notifications"
+			/>
+			<Switch
+				label="Marketing emails"
+			/>
+		</div>
+	}
+	code={`<Switch
+  label="Push notifications"
+/>
+<Switch
+  label="Marketing emails"
+/>`}
+/>
+
+### Disabled State
+
+<PreviewCard
+	preview={
+		<div className="flex flex-col gap-4 items-start">
+			<Switch label="Disabled off" disabled />
+			<Switch label="Disabled on" disabled defaultChecked />
+		</div>
+	}
+	code={`<Switch label="Disabled off" disabled />
+<Switch label="Disabled on" disabled defaultChecked />`}
+/>
+
+### Settings Pattern
+
+<PreviewCard
+	preview={
+		<div className="flex flex-col gap-0 w-full max-w-sm divide-y divide-fd-border border border-fd-border rounded-md overflow-hidden">
+			<div className="p-4">
+				<Switch
+					label="Email notifications"
+					defaultChecked
+				/>
+			</div>
+			<div className="p-4">
+				<Switch
+					label="Push notifications"
+					defaultChecked
+				/>
+			</div>
+			<div className="p-4">
+				<Switch
+					label="SMS notifications"
+				/>
+			</div>
+			<div className="p-4">
+				<Switch
+					label="Marketing emails"
+				/>
+			</div>
+		</div>
+	}
+	code={`<div className="divide-y divide-border-muted border border-border rounded-md">
+  <div className="p-4">
+    <Switch
+      label="Email notifications"
+      defaultChecked
+    />
+  </div>
+  <div className="p-4">
+    <Switch
+      label="Push notifications"
+      defaultChecked
+    />
+  </div>
+  <div className="p-4">
+    <Switch
+      label="SMS notifications"
+    />
+  </div>
+  <div className="p-4">
+    <Switch
+      label="Marketing emails"
+    />
+  </div>
+</div>`}
+/>
+
+---
+
+## Controlled
+
+Use `checked` and `onCheckedChange` to control the switch state externally.
+
+```tsx
+const [enabled, setEnabled] = useState(false);
+
+<Switch label="Dark mode" checked={enabled} onCheckedChange={setEnabled} />;
+```
+
+## Without Label
+
+When used without a label, provide an `aria-label` for accessibility.
+
+```tsx
+<Switch aria-label="Toggle dark mode" />
+```
+
+---
+
+## Props
+
+| Prop              | Type                         | Default   | Description                                  |
+| ----------------- | ---------------------------- | --------- | -------------------------------------------- |
+| `size`            | `"sm" \| "md"`               | `"md"`    | Size of the switch.                          |
+| `label`           | `ReactNode`                  | —         | Label text displayed next to the switch.     |
+| `labelPosition`   | `"left" \| "right"`          | `"right"` | Position of the label relative to the track. |
+| `description`     | `ReactNode`                  | —         | Description text below the label.            |
+| `checked`         | `boolean`                    | —         | Controlled checked state.                    |
+| `defaultChecked`  | `boolean`                    | —         | Default checked state (uncontrolled).        |
+| `onCheckedChange` | `(checked: boolean) => void` | —         | Callback when the checked state changes.     |
+| `disabled`        | `boolean`                    | `false`   | Disables the switch.                         |
+| `required`        | `boolean`                    | `false`   | Whether the switch is required in a form.    |
+| `name`            | `string`                     | —         | Form field name for native form submission.  |
+| `value`           | `string`                     | —         | Value submitted with the form.               |
+| `className`       | `string`                     | —         | Additional CSS classes.                      |
+
+---
+
+## Accessibility
+
+- Built on **Radix UI Switch** primitive for full keyboard and screen reader support.
+- Toggle with **Space** or **Enter** keys.
+- `aria-checked` state is managed automatically by Radix.
+- When no visible label is provided, you **must** supply an `aria-label`.
+- The label is clickable — clicking it toggles the switch.
+- Description text is linked to the switch via `aria-describedby`.
+- Focus ring is visible on keyboard navigation only (`focus-visible`).
+- Disabled state sets both the `disabled` attribute and reduces opacity.
+- Spring animation on the thumb respects `prefers-reduced-motion` via `useReducedMotion`.

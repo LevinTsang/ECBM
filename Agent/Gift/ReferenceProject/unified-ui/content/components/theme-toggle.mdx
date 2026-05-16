@@ -1,0 +1,249 @@
+---
+title: ThemeToggle
+description: A light/dark/system mode switcher with icon and segmented variants. Headless and controlled — works with any theme provider.
+icon: SunMoon
+---
+
+import { ThemeToggle, Button } from "@work-rjkashyap/unified-ui";
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";
+import { Callout } from "fumadocs-ui/components/callout";
+
+## Overview
+
+The `ThemeToggle` component is a controlled light/dark/system mode switcher. It supports two visual variants — a single icon button that cycles on click, and a segmented pill group with one button per option. It's fully headless: you provide the current `value` and an `onChange` callback, so it works with any theme provider (`next-themes`, custom context, etc.).
+
+---
+
+## Installation
+
+Install the component via the CLI in one command.
+
+<Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
+<Tab value="npm">
+
+```bash
+npx @work-rjkashyap/unified-ui add theme-toggle
+```
+
+</Tab>
+<Tab value="pnpm">
+
+```bash
+pnpm dlx @work-rjkashyap/unified-ui add theme-toggle
+```
+
+</Tab>
+<Tab value="yarn">
+
+```bash
+npx @work-rjkashyap/unified-ui add theme-toggle
+```
+
+</Tab>
+<Tab value="bun">
+
+```bash
+bunx @work-rjkashyap/unified-ui add theme-toggle
+```
+
+</Tab>
+</Tabs>
+
+<Callout type="info">
+	If you haven't initialized your project yet, run `npx @work-rjkashyap/unified-ui init` first. See the [CLI docs](/docs/cli) for details.
+</Callout>
+
+## Or install the full package
+
+Use this approach if you prefer to install the entire design system as a dependency instead of copying individual components.
+
+<Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
+<Tab value="npm">
+
+```bash
+npm install @work-rjkashyap/unified-ui
+```
+
+</Tab>
+<Tab value="pnpm">
+
+```bash
+pnpm add @work-rjkashyap/unified-ui
+```
+
+</Tab>
+<Tab value="yarn">
+
+```bash
+yarn add @work-rjkashyap/unified-ui
+```
+
+</Tab>
+<Tab value="bun">
+
+```bash
+bun add @work-rjkashyap/unified-ui
+```
+
+</Tab>
+</Tabs>
+
+## Anatomy
+
+```tsx
+import { ThemeToggle } from "@work-rjkashyap/unified-ui";
+```
+
+## Examples
+
+### Icon Variant (Default)
+
+<PreviewCard
+	preview={<ThemeToggleIconPreview />}
+	code={`import { useTheme } from "next-themes";
+import { ThemeToggle } from "@work-rjkashyap/unified-ui";
+
+function MyToggle() {
+const { resolvedTheme, setTheme } = useTheme();
+return (
+<ThemeToggle
+value={resolvedTheme as "light" | "dark"}
+onChange={setTheme}
+/>
+);
+}`}
+/>
+
+### Segmented Variant
+
+<PreviewCard
+	preview={<ThemeToggleSegmentedPreview />}
+	code={`<ThemeToggle
+  value={theme}
+  onChange={setTheme}
+  variant="segmented"
+/>`}
+/>
+
+### Three-State Mode (Light / Dark / System)
+
+<PreviewCard
+	preview={
+		<div className="flex flex-col gap-6 items-center justify-center">
+			<ThemeToggleSystemIconPreview />
+			<ThemeToggleSystemSegmentedPreview />
+		</div>
+	}
+	code={`// Icon variant — cycles: light → dark → system
+<ThemeToggle
+  value={theme}
+  onChange={setTheme}
+  mode="light-dark-system"
+/>
+
+// Segmented variant — shows all three options
+
+<ThemeToggle
+  value={theme}
+  onChange={setTheme}
+  variant="segmented"
+  mode="light-dark-system"
+/>`}
+/>
+
+### Sizes
+
+<PreviewCard
+	preview={<ThemeToggleSizesPreview />}
+	code={`<ThemeToggle value={theme} onChange={setTheme} size="sm" />
+<ThemeToggle value={theme} onChange={setTheme} size="md" />
+<ThemeToggle value={theme} onChange={setTheme} size="lg" />`}
+/>
+
+<PreviewCard
+	preview={<ThemeToggleSegmentedSizesPreview />}
+	code={`<ThemeToggle value={theme} onChange={setTheme} variant="segmented" size="sm" />
+<ThemeToggle value={theme} onChange={setTheme} variant="segmented" size="md" />
+<ThemeToggle value={theme} onChange={setTheme} variant="segmented" size="lg" />`}
+/>
+
+---
+
+## Integration with next-themes
+
+The most common integration is with [next-themes](https://github.com/pacocoursey/next-themes):
+
+```tsx
+"use client";
+
+import { useTheme } from "next-themes";
+import { ThemeToggle, type ThemeValue } from "@work-rjkashyap/unified-ui";
+import { useEffect, useState } from "react";
+
+export function SiteThemeToggle() {
+	const { theme, setTheme, resolvedTheme } = useTheme();
+	const [mounted, setMounted] = useState(false);
+
+	useEffect(() => setMounted(true), []);
+
+	if (!mounted) return null;
+
+	// For 2-state mode, use resolvedTheme (never "system")
+	// For 3-state mode, use theme (can be "system")
+	return (
+		<ThemeToggle
+			value={(theme ?? "system") as ThemeValue}
+			onChange={setTheme}
+			mode="light-dark-system"
+			variant="segmented"
+		/>
+	);
+}
+```
+
+---
+
+## Props
+
+### ThemeToggle
+
+| Prop        | Type                                  | Default        | Description                                    |
+| ----------- | ------------------------------------- | -------------- | ---------------------------------------------- |
+| `value`     | `"light" \| "dark" \| "system"`       | —              | **Required.** The current theme value.         |
+| `onChange`  | `(value: ThemeValue) => void`         | —              | **Required.** Callback when the theme changes. |
+| `mode`      | `"light-dark" \| "light-dark-system"` | `"light-dark"` | Whether to include the system/auto option.     |
+| `variant`   | `"icon" \| "segmented"`               | `"icon"`       | Visual variant.                                |
+| `size`      | `"sm" \| "md" \| "lg"`                | `"md"`         | Size of the toggle.                            |
+| `className` | `string`                              | —              | Extra classes on the outer element.            |
+
+---
+
+## Variants Reference
+
+| Variant     | Description                                                      | Best For                          |
+| ----------- | ---------------------------------------------------------------- | --------------------------------- |
+| `icon`      | Single button that cycles on click with animated icon transition | Navbars, toolbars, compact spaces |
+| `segmented` | Inline pill group with one button per option                     | Settings pages, preference panels |
+
+---
+
+## Accessibility
+
+- **Keyboard**: The icon variant is a standard `<button>` — focusable and activatable with `Enter` or `Space`. The segmented variant uses `role="radiogroup"` with `role="radio"` on each option, supporting `aria-checked`.
+- **Focus ring**: Uses the design system's standard `focusRingClasses` for visible keyboard focus.
+- **Labels**: The icon variant sets a descriptive `aria-label` indicating which theme it will switch to. Each segmented button has an `aria-label` matching its theme name.
+- **Motion**: Icon transitions use `transition-all` with `duration-300` and respect `prefers-reduced-motion` via the standard Tailwind `motion-safe` / `motion-reduce` utilities.
+
+---
+
+## Design Tokens
+
+| Token       | CSS Variable             | Tailwind                    | Usage                          |
+| ----------- | ------------------------ | --------------------------- | ------------------------------ |
+| Background  | `--secondary`            | `bg-secondary`              | Icon button background         |
+| Border      | `--border`               | `border-border`             | Button border                  |
+| Text        | `--secondary-foreground` | `text-secondary-foreground` | Icon color                     |
+| Active bg   | `--background`           | `bg-background`             | Active segment background      |
+| Active text | `--foreground`           | `text-foreground`           | Active segment icon            |
+| Muted       | `--muted`                | `bg-muted`                  | Segmented container background |
+| Transition  | `--duration-fast`        | `duration-fast`             | Hover/active transitions       |

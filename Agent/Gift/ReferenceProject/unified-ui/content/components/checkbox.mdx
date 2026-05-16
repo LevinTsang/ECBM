@@ -1,0 +1,433 @@
+---
+title: Checkbox
+description: An accessible checkbox component with label, description, indeterminate state, and group support.
+icon: SquareCheck
+---
+
+import { Checkbox, CheckboxGroup } from "@work-rjkashyap/unified-ui";
+import { Callout } from "fumadocs-ui/components/callout";
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";
+
+## Overview
+
+The `Checkbox` component is an accessible checkbox built on Radix UI. It supports labels, descriptions, indeterminate state, error styling, two sizes, and group composition with vertical or horizontal orientation.
+
+---
+
+## Installation
+
+Install the component via the CLI in one command.
+
+<Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
+<Tab value="npm">
+
+```bash
+npx @work-rjkashyap/unified-ui add checkbox
+```
+
+</Tab>
+<Tab value="pnpm">
+
+```bash
+pnpm dlx @work-rjkashyap/unified-ui add checkbox
+```
+
+</Tab>
+<Tab value="yarn">
+
+```bash
+npx @work-rjkashyap/unified-ui add checkbox
+```
+
+</Tab>
+<Tab value="bun">
+
+```bash
+bunx @work-rjkashyap/unified-ui add checkbox
+```
+
+</Tab>
+</Tabs>
+
+<Callout type="info">
+	If you haven't initialized your project yet, run `npx @work-rjkashyap/unified-ui init` first. See the [CLI docs](/docs/cli) for details.
+</Callout>
+
+## Or install the full package
+
+Use this approach if you prefer to install the entire design system as a dependency instead of copying individual components.
+
+<Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
+<Tab value="npm">
+
+```bash
+npm install @work-rjkashyap/unified-ui
+```
+
+</Tab>
+<Tab value="pnpm">
+
+```bash
+pnpm add @work-rjkashyap/unified-ui
+```
+
+</Tab>
+<Tab value="yarn">
+
+```bash
+yarn add @work-rjkashyap/unified-ui
+```
+
+</Tab>
+<Tab value="bun">
+
+```bash
+bun add @work-rjkashyap/unified-ui
+```
+
+</Tab>
+</Tabs>
+
+## Anatomy
+
+```tsx
+import {
+	Checkbox,
+	CheckboxGroup,
+} from "@work-rjkashyap/unified-ui";
+```
+
+## Examples
+
+### Basic Usage
+
+<PreviewCard
+	preview={
+		<div className="flex flex-col gap-4 w-full max-w-xs">
+			<Checkbox label="Accept terms and conditions" />
+			<Checkbox label="Send me email notifications" defaultChecked />
+			<Checkbox label="Remember me" />
+		</div>
+	}
+	code={`<Checkbox label="Accept terms and conditions" />
+<Checkbox label="Send me email notifications" defaultChecked />
+<Checkbox label="Remember me" />`}
+/>
+
+### Sizes
+
+<PreviewCard
+	preview={
+		<div className="flex flex-col gap-6 w-full max-w-xs">
+			<div className="flex flex-col gap-3">
+				<Checkbox size="sm" label="Small checkbox" />
+				<Checkbox size="sm" label="Small checked" defaultChecked />
+			</div>
+			<div className="flex flex-col gap-3">
+				<Checkbox size="md" label="Medium checkbox (default)" />
+				<Checkbox size="md" label="Medium checked" defaultChecked />
+			</div>
+		</div>
+	}
+	code={`{/* Small */}
+<Checkbox size="sm" label="Small checkbox" />
+<Checkbox size="sm" label="Small checked" defaultChecked />
+
+{/* Medium (default) */}
+
+<Checkbox size="md" label="Medium checkbox (default)" />
+<Checkbox size="md" label="Medium checked" defaultChecked />`}
+/>
+
+### With Description
+
+<PreviewCard
+	preview={
+		<div className="flex flex-col gap-4 w-full max-w-sm">
+			<Checkbox
+				label="Marketing emails"
+			/>
+			<Checkbox
+				label="Security alerts"
+				defaultChecked
+			/>
+			<Checkbox
+				label="Usage analytics"
+			/>
+		</div>
+	}
+	code={`<Checkbox
+  label="Marketing emails"
+/>
+<Checkbox
+  label="Security alerts"
+  defaultChecked
+/>
+<Checkbox
+  label="Usage analytics"
+/>`}
+/>
+
+### Indeterminate State
+
+<PreviewCard
+	preview={
+		<div className="flex flex-col gap-3 w-full max-w-xs">
+			<Checkbox checked="indeterminate" label="Select all items" />
+			<div className="ml-6 flex flex-col gap-2">
+				<Checkbox size="sm" label="Item one" defaultChecked />
+				<Checkbox size="sm" label="Item two" defaultChecked />
+				<Checkbox size="sm" label="Item three" />
+			</div>
+		</div>
+	}
+	code={`<Checkbox checked="indeterminate" label="Select all items" />
+
+{/* Child checkboxes */}
+
+<Checkbox size="sm" label="Item one" defaultChecked />
+<Checkbox size="sm" label="Item two" defaultChecked />
+<Checkbox size="sm" label="Item three" />`}
+/>
+
+### Disabled State
+
+<PreviewCard
+	preview={
+		<div className="flex flex-col gap-3 w-full max-w-xs">
+			<Checkbox disabled label="Disabled unchecked" />
+			<Checkbox disabled defaultChecked label="Disabled checked" />
+			<Checkbox
+				disabled
+				checked="indeterminate"
+				label="Disabled indeterminate"
+			/>
+		</div>
+	}
+	code={`<Checkbox disabled label="Disabled unchecked" />
+<Checkbox disabled defaultChecked label="Disabled checked" />
+<Checkbox disabled checked="indeterminate" label="Disabled indeterminate" />`}
+/>
+
+### Error State
+
+<PreviewCard
+	preview={
+		<div className="flex flex-col gap-1.5 w-full max-w-xs">
+			<Checkbox
+				error
+				label="I accept the terms and conditions"
+				aria-describedby="terms-error"
+			/>
+			<span
+				id="terms-error"
+				className="block text-xs text-danger ml-6"
+			>
+				You must accept the terms to continue.
+			</span>
+		</div>
+	}
+	code={`<Checkbox
+  error
+  label="I accept the terms and conditions"
+  aria-describedby="terms-error"
+/>
+<p id="terms-error" className="text-xs text-danger ml-6">
+  You must accept the terms to continue.
+</p>`}
+/>
+
+### Checkbox Group — Vertical
+
+<PreviewCard
+	preview={
+		<div className="w-full max-w-xs">
+			<CheckboxGroup label="Notifications">
+				<Checkbox value="email" label="Email" />
+				<Checkbox value="sms" label="SMS" />
+				<Checkbox value="push" label="Push notifications" />
+			</CheckboxGroup>
+		</div>
+	}
+	code={`<CheckboxGroup label="Notifications">
+  <Checkbox value="email" label="Email" />
+  <Checkbox value="sms" label="SMS" />
+  <Checkbox value="push" label="Push notifications" />
+</CheckboxGroup>`}
+/>
+
+### Checkbox Group — Horizontal
+
+<PreviewCard
+	preview={
+		<div className="w-full max-w-sm">
+			<CheckboxGroup label="Interests" orientation="horizontal">
+				<Checkbox value="design" label="Design" />
+				<Checkbox value="engineering" label="Engineering" />
+				<Checkbox value="product" label="Product" />
+			</CheckboxGroup>
+		</div>
+	}
+	code={`<CheckboxGroup label="Interests" orientation="horizontal">
+  <Checkbox value="design" label="Design" />
+  <Checkbox value="engineering" label="Engineering" />
+  <Checkbox value="product" label="Product" />
+</CheckboxGroup>`}
+/>
+
+### Checkbox Group — With Description
+
+<PreviewCard
+	preview={
+		<div className="w-full max-w-sm">
+			<CheckboxGroup
+				label="Privacy settings"
+			>
+				<Checkbox
+					value="analytics"
+					label="Analytics"
+				/>
+				<Checkbox
+					value="crashes"
+					label="Crash reports"
+				/>
+				<Checkbox
+					value="personalization"
+					label="Personalization"
+				/>
+			</CheckboxGroup>
+		</div>
+	}
+	code={`<CheckboxGroup
+  label="Privacy settings"
+>
+  <Checkbox
+    value="analytics"
+    label="Analytics"
+  />
+  <Checkbox
+    value="crashes"
+    label="Crash reports"
+  />
+  <Checkbox
+    value="personalization"
+    label="Personalization"
+  />
+</CheckboxGroup>`}
+/>
+
+### Combined Features
+
+<PreviewCard
+	preview={
+		<div className="flex flex-col gap-6 w-full max-w-sm">
+			<CheckboxGroup label="Account preferences">
+				<Checkbox
+					value="2fa"
+					label="Two-factor authentication"
+					defaultChecked
+				/>
+				<Checkbox
+					value="sessions"
+					label="Active sessions"
+					defaultChecked
+				/>
+				<Checkbox
+					value="marketing"
+					label="Marketing communications"
+				/>
+			</CheckboxGroup>
+			<div className="flex flex-col gap-1.5">
+				<Checkbox
+					error
+					label="I agree to the privacy policy"
+					size="sm"
+				/>
+				<span className="block text-xs text-danger ml-5">
+					Required to create an account.
+				</span>
+			</div>
+		</div>
+	}
+	code={`<CheckboxGroup label="Account preferences">
+  <Checkbox
+    value="2fa"
+    label="Two-factor authentication"
+    defaultChecked
+  />
+  <Checkbox
+    value="sessions"
+    label="Active sessions"
+    defaultChecked
+  />
+  <Checkbox
+    value="marketing"
+    label="Marketing communications"
+  />
+</CheckboxGroup>
+
+{/* Standalone with error */}
+
+<Checkbox error label="I agree to the privacy policy" size="sm" />
+<p className="text-xs text-danger ml-5">Required to create an account.</p>`}
+/>
+
+---
+
+## Props
+
+### Checkbox
+
+| Prop              | Type                                            | Default | Description                             |
+| ----------------- | ----------------------------------------------- | ------- | --------------------------------------- |
+| `checked`         | `boolean \| "indeterminate"`                    | —       | Controlled checked state.               |
+| `defaultChecked`  | `boolean`                                       | `false` | Initial checked state (uncontrolled).   |
+| `onCheckedChange` | `(checked: boolean \| "indeterminate") => void` | —       | Callback when checked state changes.    |
+| `size`            | `"sm" \| "md"`                                  | `"md"`  | Size of the checkbox.                   |
+| `label`           | `ReactNode`                                     | —       | Clickable label text.                   |
+| `description`     | `ReactNode`                                     | —       | Description text below the label.       |
+| `value`           | `string`                                        | —       | Value used when inside a CheckboxGroup. |
+| `error`           | `boolean`                                       | `false` | Whether to show error styling.          |
+| `disabled`        | `boolean`                                       | `false` | Whether the checkbox is disabled.       |
+| `className`       | `string`                                        | —       | Additional CSS classes.                 |
+
+### CheckboxGroup
+
+| Prop          | Type                         | Default      | Description                                    |
+| ------------- | ---------------------------- | ------------ | ---------------------------------------------- |
+| `label`       | `ReactNode`                  | —            | Group label displayed above the checkboxes.    |
+| `description` | `ReactNode`                  | —            | Description text below the group label.        |
+| `orientation` | `"vertical" \| "horizontal"` | `"vertical"` | Layout direction of the checkboxes.            |
+| `size`        | `"sm" \| "md"`               | `"md"`       | Size applied to all child checkboxes.          |
+| `error`       | `boolean`                    | `false`      | Whether to show error styling on all children. |
+| `disabled`    | `boolean`                    | `false`      | Whether all children are disabled.             |
+| `className`   | `string`                     | —            | Additional CSS classes.                        |
+
+---
+
+## Accessibility
+
+<Callout type="info">
+	Built on **@radix-ui/react-checkbox** which provides full keyboard and
+	screen reader support out of the box.
+</Callout>
+
+- **Keyboard** — `Space` toggles the checkbox. `Tab` moves focus between checkboxes.
+- **Focus ring** — Visible on keyboard navigation via `focus-visible`.
+- **Label** — Clicking the label text toggles the checkbox (integrated `<label>` element).
+- **Indeterminate** — Properly exposed via `aria-checked="mixed"`.
+- **Group** — `CheckboxGroup` uses `role="group"` with `aria-labelledby` for the group label.
+- **Disabled** — Sets both the `disabled` attribute and `aria-disabled`.
+- **Error** — The `error` prop applies visual styling. Pair with `aria-describedby` and an error message element for screen reader support.
+
+---
+
+## Design Tokens
+
+| Token                           | Usage                    |
+| ------------------------------- | ------------------------ |
+| `--primary`            | Checked state background |
+| `--primary-foreground` | Checkmark icon color     |
+| `--danger`             | Error state border       |
+| `--radius-sm`                | Checkbox border radius   |
+| `--duration-fast`            | Transition speed         |

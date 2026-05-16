@@ -1,0 +1,290 @@
+---
+title: Design System
+description: A token-driven, accessible React design system with 75+ components, built with Tailwind CSS v4, Radix UI, and Framer Motion.
+icon: Palette
+---
+
+import { Callout } from "fumadocs-ui/components/callout";
+
+## Overview
+
+Unified UI is a **6-layer design system** with **75+ production-ready components** that enforces a strict separation of concerns. Each layer has a clear responsibility, and dependencies only flow downward — components can use primitives and tokens, but tokens never depend on components.
+
+Inspired by [shadcn/ui](https://ui.shadcn.com), it takes the same Radix + Tailwind + CVA foundation and structures it into a proper design system with tokens, strict layers, versioned releases, and two distribution modes (npm package or copy-paste CLI).
+
+This architecture ensures that changes to low-level values (like a color or spacing unit) propagate consistently across the entire system without manual updates.
+
+---
+
+## Architecture
+
+Unified UI is organized in a strict **6-layer hierarchy** where dependencies only flow downward. Each layer has a single responsibility and a clear boundary.
+
+| Layer                    | Path              | Responsibility                                                                      |
+| ------------------------ | ----------------- | ----------------------------------------------------------------------------------- |
+| **Layer 1 — Tokens**     | `src/tokens/`     | Raw design values — colors, spacing, typography, radius, shadows, z-index, motion   |
+| **Layer 2 — Theme**      | `src/theme/`      | CSS variable contract, `DSThemeProvider`, light/dark mode, runtime switching        |
+| **Layer 3 — Primitives** | `src/primitives/` | Typography (`Heading`, `Body`, `Caption`), layout (`Container`, `Stack`, `Divider`) |
+| **Layer 4 — Components** | `src/components/` | 75+ composite UI components — `Button`, `Dialog`, `DataTable`, `Sidebar`, etc.      |
+| **Layer 5 — Motion**     | `src/motion/`     | Framer Motion presets (`fadeIn`, `slideUp`, `scaleIn`), hooks, stagger utilities    |
+| **Layer 6 — Utils**      | `src/utils/`      | `cn()`, `focusRingClasses`, `checkHexContrast`, polymorphic types                   |
+
+### Dependency Flow
+
+```
+Tokens → Theme → Primitives → Components
+                                   ↑
+                                Motion
+                                Utils (shared across all layers)
+```
+
+- **Tokens** are pure data — no React, no CSS, no side effects.
+- **Theme** reads tokens and maps them to CSS custom properties.
+- **Primitives** consume theme variables via Tailwind utilities.
+- **Components** compose primitives and add interaction logic (Radix UI, Framer Motion).
+- **Motion** provides Framer Motion presets that any layer can use.
+- **Utils** are pure functions shared across all layers.
+
+<Callout type="warn">
+	**No upward imports.** A token file must never import from a component. A
+	primitive must never import from a composite component. This rule is
+	enforced by convention and code review.
+</Callout>
+
+---
+
+## Design Principles
+
+### Token-Driven
+
+Every visual property in the system — color, spacing, radius, shadow, font size, motion duration — originates from a design token. Components reference tokens through CSS custom properties or Tailwind utilities, never through hardcoded values.
+
+```tsx
+// ✅ Correct — uses token-driven Tailwind classes
+<div className="bg-primary text-primary-foreground rounded-md p-4" />
+
+// ❌ Wrong — hardcoded values bypass the token system
+<div className="bg-blue-600 text-white rounded-lg p-4" />
+```
+
+### Two Distribution Modes
+
+Unified UI supports two ways to consume components — choose the one that fits your team:
+
+- **npm Package** — `npm i @work-rjkashyap/unified-ui`. Single install, everything included. Versioned releases, tree-shakeable imports, always in sync across projects.
+- **Copy & Paste CLI** — `npx @work-rjkashyap/unified-ui add button`. Components are copied into your project as local files. You own the source, customize freely, and the CLI resolves all dependencies automatically.
+
+```tsx
+// npm package — import from the library
+import { Button, Dialog } from "@work-rjkashyap/unified-ui";
+
+// Copy & Paste — import from your project
+import { Button } from "@/components/ui/button";
+import { Dialog } from "@/components/ui/dialog";
+```
+
+### Accessible by Default
+
+All interactive components are built on [Radix UI](https://www.radix-ui.com/) primitives and meet **WCAG AA** standards:
+
+- **Focus management** — Visible focus rings via the `focusRingClasses` utility.
+- **Keyboard navigation** — Full keyboard support powered by Radix UI primitives.
+- **ARIA attributes** — Correct `role`, `aria-*`, and semantic HTML throughout.
+- **Color contrast** — 4.5:1 for normal text, 3:1 for large text. Verified with the built-in `checkHexContrast` utility.
+- **Reduced motion** — All animations respect `prefers-reduced-motion` via the `useReducedMotion` hook.
+
+### Composable
+
+The system is designed for **progressive composition**. Start with tokens if you need raw values. Use primitives for layout and typography. Reach for components when you need full interaction patterns.
+
+```tsx
+// Just tokens
+import { spacing, radius } from "@work-rjkashyap/unified-ui/tokens";
+
+// Primitives for layout
+import { Stack, Heading, Body } from "@work-rjkashyap/unified-ui/primitives";
+
+// Full components for interaction
+import { Button, Dialog, Toast } from "@work-rjkashyap/unified-ui/components";
+```
+
+### Theme-Aware
+
+Every component automatically adapts to the active theme through CSS custom properties. Design system variables use semantic names (e.g. `--primary`, `--radius-md`) that don't collide with host application styles.
+
+```css
+/* Light mode (default) */
+:root {
+	--primary: #0f172a;
+	--background: #ffffff;
+}
+
+/* Dark mode */
+.dark {
+	--primary: #f8fafc;
+	--background: #0a0a0a;
+}
+```
+
+---
+
+## File Structure
+
+```
+packages/unified-ui/src/
+├── tokens/                    ← Layer 1: Design tokens
+│   ├── colors.ts              ← Color palettes + semantic mappings
+│   ├── spacing.ts             ← 4px grid spacing scale
+│   ├── typography.ts          ← Font families, sizes, weights, presets
+│   ├── radius.ts              ← Border radius scale
+│   ├── shadows.ts             ← Elevation shadows (light + dark)
+│   ├── z-index.ts             ← Z-index scale for layering
+│   ├── motion.ts              ← Duration, easing, spring configs
+│   └── index.ts               ← Token barrel export
+│
+├── theme/                     ← Layer 2: Theme system
+│   ├── contract.ts            ← CSS variable contract + cssVar helper
+│   ├── provider.tsx           ← DSThemeProvider + useDSTheme hook
+│   ├── presets.ts             ← Built-in theme presets
+│   ├── customizer.tsx         ← Theme customizer UI component
+│   ├── customizer-store.tsx   ← Theme customizer state management
+│   └── index.ts
+│
+├── primitives/                ← Layer 3: Typography + Layout
+│   ├── typography.tsx         ← Typography, Heading, Body, Caption, etc.
+│   ├── container.tsx          ← Responsive container with max-width
+│   ├── stack.tsx              ← Flex stack layout (horizontal/vertical)
+│   ├── divider.tsx            ← Horizontal/vertical divider
+│   └── index.ts
+│
+├── components/                ← Layer 4: 75+ composite components
+│   ├── button.tsx
+│   ├── input.tsx
+│   ├── dialog.tsx
+│   ├── data-table.tsx
+│   ├── sidebar.tsx
+│   ├── ... (70+ more)
+│   └── index.ts
+│
+├── motion/                    ← Layer 5: Framer Motion presets
+│   ├── presets.ts             ← fadeIn, slideUp, scaleIn, modal, toast, etc.
+│   ├── hooks.ts               ← useMotion, useReducedMotion, MotionSafe
+│   └── index.ts
+│
+├── utils/                     ← Layer 6: Shared utilities
+│   ├── cn.ts                  ← Class merging (clsx + tailwind-merge)
+│   ├── focus-ring.ts          ← Focus ring class utilities
+│   ├── contrast.ts            ← WCAG contrast ratio checking
+│   └── types.ts               ← Polymorphic types, slot types
+│
+├── styles.css                 ← Tailwind @theme + CSS custom properties
+└── index.ts                   ← Barrel entry point
+```
+
+---
+
+## CSS Custom Properties
+
+All design system CSS variables use plain `--` prefix with no namespace infix. This is a **permanent decision** — the naming convention will not change.
+
+| Category   | Pattern               | Example              |
+| ---------- | --------------------- | -------------------- |
+| Colors     | `--{name}`            | `--primary`          |
+| Spacing    | `--spacing-{scale}`   | `--spacing-4`        |
+| Radius     | `--radius-{size}`     | `--radius-md`        |
+| Shadows    | `--shadow-{level}`    | `--shadow-md`        |
+| Typography | `--font-family-{key}` | `--font-family-sans` |
+| Z-Index    | `--z-{name}`          | `--z-modal`          |
+| Motion     | `--duration-{speed}`  | `--duration-normal`  |
+
+---
+
+## Distribution & Build
+
+The design system package (`@work-rjkashyap/unified-ui`) is built with [tsup](https://tsup.egoist.dev/) and produces:
+
+- **ESM** (`.mjs`) — For modern bundlers and `import` statements
+- **CJS** (`.cjs`) — For legacy `require()` environments
+- **TypeScript declarations** (`.d.ts` / `.d.cts`) — Full type safety
+
+Client entry points (`index`, `theme`, `primitives`, `components`, `motion`) are patched with `"use client"` for Next.js App Router compatibility. Token and utility entry points are pure JS with no React dependency.
+
+### Registry (Copy & Paste Mode)
+
+When using the CLI, components are served from a public registry at `/r/`. Each registry item includes:
+
+- Full source file content (with internal `@unified-ui/*` imports rewritten to local paths)
+- npm dependencies that need to be installed
+- Registry dependencies (cross-component references)
+- Whether the file requires `"use client"`
+
+```bash
+# Build the registry locally
+npm run build:registry
+
+# Registry outputs to public/r/
+# ├── index.json         ← Full registry manifest
+# ├── button.json        ← Per-component metadata + source
+# ├── card.json
+# └── ...
+```
+
+---
+
+## Data Attributes
+
+Every Unified UI component renders semantic `data-ds-*` attributes for styling hooks and debugging:
+
+| Attribute           | Purpose                                         |
+| ------------------- | ----------------------------------------------- |
+| `data-ds`           | Marks an element as part of the design system   |
+| `data-ds-component` | Component name (e.g., `"button"`, `"dialog"`)   |
+| `data-ds-variant`   | Active variant (e.g., `"primary"`, `"outline"`) |
+| `data-ds-size`      | Active size (e.g., `"sm"`, `"md"`, `"lg"`)      |
+| `data-ds-state`     | Component state (e.g., `"open"`, `"disabled"`)  |
+
+These attributes make it easy to target design system components in CSS, tests, or browser DevTools:
+
+```css
+/* Style all open dialogs */
+[data-ds-component="dialog"][data-ds-state="open"] {
+	/* ... */
+}
+```
+
+---
+
+## Next Steps
+
+<Cards>
+	<Card
+		title="Getting Started"
+		description="Install via npm or the copy-paste CLI and start building."
+		href="/docs"
+	/>
+	<Card
+		title="Tokens"
+		description="The raw design values that power every component."
+		href="/docs/tokens"
+	/>
+	<Card
+		title="Colors"
+		description="Color palettes, semantic mappings, and dark mode."
+		href="/docs/colors"
+	/>
+	<Card
+		title="Typography"
+		description="Font families, size scale, and typography components."
+		href="/docs/typography"
+	/>
+	<Card
+		title="Theming"
+		description="CSS variable architecture and runtime theme switching."
+		href="/docs/theming"
+	/>
+	<Card
+		title="Components"
+		description="Browse the full 75+ component library with live examples."
+		href="/components"
+	/>
+</Cards>

@@ -1,0 +1,312 @@
+---
+title: Steps
+description: A multi-step wizard progress indicator with horizontal and vertical orientations, clickable navigation, and status states.
+icon: ListOrdered
+---
+
+import { Steps, Step } from "@work-rjkashyap/unified-ui";
+import { Callout } from "fumadocs-ui/components/callout";
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";
+
+## Overview
+
+`Steps` is a wizard progress indicator for multi-step flows like onboarding, checkout, and form wizards. It supports horizontal and vertical orientations, three visual variants, clickable step navigation, and optional titles and descriptions.
+
+---
+
+## Installation
+
+Install the component via the CLI in one command.
+
+<Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
+<Tab value="npm">
+
+```bash
+npx @work-rjkashyap/unified-ui add steps
+```
+
+</Tab>
+<Tab value="pnpm">
+
+```bash
+pnpm dlx @work-rjkashyap/unified-ui add steps
+```
+
+</Tab>
+<Tab value="yarn">
+
+```bash
+npx @work-rjkashyap/unified-ui add steps
+```
+
+</Tab>
+<Tab value="bun">
+
+```bash
+bunx @work-rjkashyap/unified-ui add steps
+```
+
+</Tab>
+</Tabs>
+
+<Callout type="info">
+	If you haven't initialized your project yet, run `npx @work-rjkashyap/unified-ui init` first. See the [CLI docs](/docs/cli) for details.
+</Callout>
+
+## Or install the full package
+
+Use this approach if you prefer to install the entire design system as a dependency instead of copying individual components.
+
+<Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
+<Tab value="npm">
+
+```bash
+npm install @work-rjkashyap/unified-ui
+```
+
+</Tab>
+<Tab value="pnpm">
+
+```bash
+pnpm add @work-rjkashyap/unified-ui
+```
+
+</Tab>
+<Tab value="yarn">
+
+```bash
+yarn add @work-rjkashyap/unified-ui
+```
+
+</Tab>
+<Tab value="bun">
+
+```bash
+bun add @work-rjkashyap/unified-ui
+```
+
+</Tab>
+</Tabs>
+
+## Anatomy
+
+```tsx
+import {
+	Steps,
+	Step,
+} from "@work-rjkashyap/unified-ui";
+```
+
+## Examples
+
+### Basic
+
+<PreviewCard
+	preview={
+		<div className="w-full max-w-lg">
+			<Steps currentStep={1}>
+				<Step />
+				<Step />
+				<Step />
+			</Steps>
+		</div>
+	}
+	code={`<Steps currentStep={1}>
+  <Step />
+  <Step />
+  <Step />
+</Steps>`}
+/>
+
+### Completed State
+
+<PreviewCard
+	preview={
+		<div className="w-full max-w-lg">
+			<Steps currentStep={3}>
+				<Step />
+				<Step />
+				<Step />
+			</Steps>
+		</div>
+	}
+	code={`<Steps currentStep={3}>
+  <Step />
+  <Step />
+  <Step />
+</Steps>`}
+/>
+
+### Vertical Orientation
+
+<PreviewCard
+	preview={
+		<div className="w-full max-w-xs">
+			<Steps currentStep={1} orientation="vertical">
+				<Step
+				/>
+				<Step
+				/>
+				<Step />
+				<Step />
+			</Steps>
+		</div>
+	}
+	code={`<Steps currentStep={1} orientation="vertical">
+  <Step />
+  <Step />
+  <Step />
+  <Step />
+</Steps>`}
+/>
+
+### Variants
+
+<PreviewCard
+	preview={
+		<div className="flex flex-col gap-8 w-full max-w-lg">
+			<div>
+				<p className="text-xs text-muted-foreground mb-3 font-medium">Default</p>
+				<Steps currentStep={1} variant="default">
+					<Step />
+					<Step />
+					<Step />
+				</Steps>
+			</div>
+			<div>
+				<p className="text-xs text-muted-foreground mb-3 font-medium">Outline</p>
+				<Steps currentStep={1} variant="outline">
+					<Step />
+					<Step />
+					<Step />
+				</Steps>
+			</div>
+			<div>
+				<p className="text-xs text-muted-foreground mb-3 font-medium">Dots</p>
+				<Steps currentStep={1} variant="dots">
+					<Step />
+					<Step />
+					<Step />
+				</Steps>
+			</div>
+		</div>
+	}
+	code={`{/* Default — filled indicator with check mark */}
+<Steps currentStep={1} variant="default">
+  <Step />
+  <Step />
+  <Step />
+</Steps>
+
+{/* Outline — bordered indicator */}
+
+<Steps currentStep={1} variant="outline">
+	<Step />
+	<Step />
+	<Step />
+</Steps>
+
+{/* Dots — minimal dot indicators */}
+
+<Steps currentStep={1} variant="dots">
+  <Step />
+  <Step />
+  <Step />
+</Steps>`}
+/>
+
+### Clickable Steps
+
+<PreviewCard
+	preview={<StepsClickablePreview />}
+	code={`const [active, setActive] = useState(0);
+
+<Steps currentStep={active} onStepClick={setActive}>
+	<Step />
+	<Step />
+	<Step />
+	<Step />
+</Steps>
+
+<div className="flex gap-2">
+  <button onClick={() => setActive(Math.max(0, active - 1))} disabled={active === 0}>
+    Back
+  </button>
+  <button onClick={() => setActive(Math.min(3, active + 1))} disabled={active === 3}>
+    Continue
+  </button>
+</div>`}
+/>
+
+### Minimal (No Labels)
+
+<PreviewCard
+	preview={
+		<div className="w-full max-w-sm">
+			<Steps currentStep={2} variant="dots">
+				<Step />
+				<Step />
+				<Step />
+				<Step />
+				<Step />
+			</Steps>
+		</div>
+	}
+	code={`<Steps currentStep={2} variant="dots">
+  <Step />
+  <Step />
+  <Step />
+  <Step />
+  <Step />
+</Steps>`}
+/>
+
+---
+
+## Props
+
+### Steps
+
+| Prop          | Type                               | Default        | Description                                                   |
+| ------------- | ---------------------------------- | -------------- | ------------------------------------------------------------- |
+| `currentStep` | `number`                           | —              | **Required.** The 0-based index of the currently active step. |
+| `orientation` | `"horizontal" \| "vertical"`       | `"horizontal"` | Layout orientation.                                           |
+| `variant`     | `"default" \| "outline" \| "dots"` | `"default"`    | Visual style of step indicators.                              |
+| `onStepClick` | `(index: number) => void`          | —              | Called when a step is clicked (enables clickable wizards).    |
+| `className`   | `string`                           | —              | Additional CSS classes on the `<ol>` element.                 |
+| `children`    | `ReactNode`                        | —              | Required. Must be `Step` elements.                            |
+
+### Step
+
+| Prop          | Type        | Default | Description                                                 |
+| ------------- | ----------- | ------- | ----------------------------------------------------------- |
+| `title`       | `string`    | —       | Label displayed beneath/beside the indicator.               |
+| `description` | `string`    | —       | Optional secondary text beneath the title.                  |
+| `icon`        | `ReactNode` | —       | Custom icon to override the default number/check indicator. |
+| `className`   | `string`    | —       | Additional CSS classes on the `<li>` element.               |
+
+---
+
+## Step Status
+
+Each `Step` automatically derives its visual state from the parent `currentStep` prop:
+
+| Status     | Condition               | Visual                               |
+| ---------- | ----------------------- | ------------------------------------ |
+| `complete` | `index < currentStep`   | Filled indicator with a check mark.  |
+| `active`   | `index === currentStep` | Bordered indicator with step number. |
+| `upcoming` | `index > currentStep`   | Muted indicator with step number.    |
+
+---
+
+## Accessibility
+
+<Callout type="info">
+	`Steps` renders as `role="list"` with each `Step` as `role="listitem"`. The
+	active step has `aria-current="step"` applied automatically.
+</Callout>
+
+- `role="list"` on the `Steps` container and `role="listitem"` on each `Step`.
+- `aria-current="step"` applied to the currently active step.
+- Clickable steps render as `<button>` elements with descriptive `aria-label`.
+- The connector lines are `aria-hidden="true"`.

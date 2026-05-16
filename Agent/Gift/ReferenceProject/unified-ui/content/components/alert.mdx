@@ -1,0 +1,509 @@
+---
+title: Alert
+description: A static notification component for contextual feedback messages with semantic variants, dismissible close, collapsible content, and optional animated entrance.
+icon: CircleAlert
+---
+
+import { Alert } from "@work-rjkashyap/unified-ui";
+import { Callout } from "fumadocs-ui/components/callout";
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";
+
+## Basic
+
+Contextual feedback messages for inline notifications, validation, system status, tips, and collapsible information blocks. Supports 5 semantic variants, dismissible close, collapsible mode, and animated entrance.
+
+<PreviewCard
+	preview={
+		<div className="flex flex-col gap-3 w-full">
+			<Alert variant="info">
+				You can press Ctrl+S to save your work at any time.
+			</Alert>
+			<Alert variant="success">
+				Your order has been confirmed and is being processed.
+			</Alert>
+			<Alert variant="warning">
+				Your session will expire in 5 minutes. Save your work.
+			</Alert>
+			<Alert variant="danger">
+				Unable to reach the server. Check your network connection.
+			</Alert>
+			<Alert variant="default">
+				This is a generic note without semantic meaning.
+			</Alert>
+		</div>
+	}
+	code={`<Alert variant="info">
+  You can press Ctrl+S to save your work at any time.
+</Alert>
+<Alert variant="success">
+  Your order has been confirmed and is being processed.
+</Alert>
+<Alert variant="warning">
+  Your session will expire in 5 minutes. Save your work.
+</Alert>
+<Alert variant="danger">
+  Unable to reach the server. Check your network connection.
+</Alert>
+<Alert variant="default">
+  This is a generic note without semantic meaning.
+</Alert>`}
+
+/>
+
+## Installation
+
+Install the component via the CLI in one command.
+
+<Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
+<Tab value="npm">
+
+```bash
+npx @work-rjkashyap/unified-ui add alert
+```
+
+</Tab>
+<Tab value="pnpm">
+
+```bash
+pnpm dlx @work-rjkashyap/unified-ui add alert
+```
+
+</Tab>
+<Tab value="yarn">
+
+```bash
+npx @work-rjkashyap/unified-ui add alert
+```
+
+</Tab>
+<Tab value="bun">
+
+```bash
+bunx @work-rjkashyap/unified-ui add alert
+```
+
+</Tab>
+</Tabs>
+
+<Callout type="info">
+	If you haven't initialized your project yet, run `npx @work-rjkashyap/unified-ui init` first. See the [CLI docs](/docs/cli) for details.
+</Callout>
+
+## Or install the full package
+
+Use this approach if you prefer to install the entire design system as a dependency instead of copying individual components.
+
+<Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
+<Tab value="npm">
+
+```bash
+npm install @work-rjkashyap/unified-ui
+```
+
+</Tab>
+<Tab value="pnpm">
+
+```bash
+pnpm add @work-rjkashyap/unified-ui
+```
+
+</Tab>
+<Tab value="yarn">
+
+```bash
+yarn add @work-rjkashyap/unified-ui
+```
+
+</Tab>
+<Tab value="bun">
+
+```bash
+bun add @work-rjkashyap/unified-ui
+```
+
+</Tab>
+</Tabs>
+
+## Anatomy
+
+```tsx
+import {
+	Alert,
+	Callout,
+} from "@work-rjkashyap/unified-ui";
+```
+
+## Basic Usage
+
+```tsx
+<Alert variant="info" title="Did you know?">
+  Unified UI components are fully tree-shakeable via layer-specific imports.
+</Alert>
+
+<Alert variant="danger" dismissible onDismiss={() => setVisible(false)}>
+  Something went wrong. Please try again.
+</Alert>
+
+<Alert variant="info" title="FAQ" collapsible defaultOpen={false}>
+  Expandable content goes here.
+</Alert>
+```
+
+## Variants
+
+Alert supports five semantic variants that determine color, icon, and ARIA role.
+
+### Info (default)
+
+Used for informational messages, tips, and notes. Renders with `role="status"` (polite live region).
+
+<PreviewCard
+	preview={
+		<div className="w-full">
+			<Alert variant="info">
+				You can drag and drop files to upload them.
+			</Alert>
+		</div>
+	}
+	code={`<Alert variant="info">
+  You can drag and drop files to upload them.
+</Alert>`}
+/>
+
+### Success
+
+Used for positive outcomes like confirmations and completions. Renders with `role="status"`.
+
+<PreviewCard
+	preview={
+		<div className="w-full">
+			<Alert variant="success">
+				Your profile has been updated successfully.
+			</Alert>
+		</div>
+	}
+	code={`<Alert variant="success">
+  Your profile has been updated successfully.
+</Alert>`}
+/>
+
+### Warning
+
+Used for caution messages and deprecation notices. Renders with `role="alert"` (assertive live region).
+
+<PreviewCard
+	preview={
+		<div className="w-full">
+			<Alert variant="warning">
+				This API endpoint will be removed in v3.0. Please migrate to the
+				new endpoint.
+			</Alert>
+		</div>
+	}
+	code={`<Alert variant="warning">
+  This API endpoint will be removed in v3.0. Please migrate to the new
+  endpoint.
+</Alert>`}
+/>
+
+### Danger
+
+Used for error messages and destructive action warnings. Renders with `role="alert"`.
+
+<PreviewCard
+	preview={
+		<div className="w-full">
+			<Alert variant="danger">
+				Could not delete the resource. You may not have sufficient
+				permissions.
+			</Alert>
+		</div>
+	}
+	code={`<Alert variant="danger">
+  Could not delete the resource. You may not have sufficient permissions.
+</Alert>`}
+/>
+
+### Default
+
+A neutral variant with no semantic color. Use for generic notes that don't fit info/success/warning/danger. Renders with `role="status"`.
+
+<PreviewCard
+	preview={
+		<div className="w-full">
+			<Alert variant="default">
+				This callout uses the neutral default variant for generic notes.
+			</Alert>
+		</div>
+	}
+	code={`<Alert variant="default">
+  This callout uses the neutral default variant for generic notes.
+</Alert>`}
+/>
+
+| Variant   | Background        | Border         | Icon Color   | ARIA Role  | Use Case                          |
+| --------- | ----------------- | -------------- | ------------ | ---------- | --------------------------------- |
+| `info`    | `--info-muted`    | `--info/20`    | `--info`     | `"status"` | Tips, guidance, neutral info      |
+| `success` | `--success-muted` | `--success/20` | `--success`  | `"status"` | Confirmations, completed actions  |
+| `warning` | `--warning-muted` | `--warning/20` | `--warning`  | `"alert"`  | Cautions, deprecation notices     |
+| `danger`  | `--danger-muted`  | `--danger/20`  | `--danger`   | `"alert"`  | Errors, destructive action alerts |
+| `default` | `--muted`         | `--border`     | `--muted-fg` | `"status"` | Generic notes, neutral callouts   |
+
+## Without Title
+
+Alerts can be rendered without a title for simpler, single-line messages.
+
+<PreviewCard
+	preview={
+		<div className="flex flex-col gap-3 w-full">
+			<Alert variant="info">
+				This feature is currently in beta.
+			</Alert>
+			<Alert variant="warning">
+				Maintenance scheduled for tomorrow at 3:00 AM UTC.
+			</Alert>
+		</div>
+	}
+	code={`<Alert variant="info">
+  This feature is currently in beta.
+</Alert>
+
+<Alert variant="warning">
+  Maintenance scheduled for tomorrow at 3:00 AM UTC.
+</Alert>`}
+/>
+
+## Dismissible
+
+Add the `dismissible` prop to show a close button. Provide an `onDismiss` callback to control visibility externally, or let the alert manage its own visibility.
+
+<PreviewCard
+	preview={
+		<div className="flex flex-col gap-3 w-full">
+			<Alert variant="danger" dismissible>
+				Something went wrong. Please try again.
+			</Alert>
+			<Alert variant="info" dismissible>
+				This alert will hide itself when dismissed.
+			</Alert>
+		</div>
+	}
+	code={`// Controlled
+<Alert variant="danger" dismissible onDismiss={() => setVisible(false)}>
+  Something went wrong. Please try again.
+</Alert>
+
+// Self-managed (hides itself when dismissed)
+
+<Alert variant="info" dismissible>
+  This alert will hide itself when dismissed.
+</Alert>`}
+/>
+
+## Collapsible
+
+Set `collapsible` to make the body expandable/collapsible. The chevron animates on toggle. Use `defaultOpen` to control initial state.
+
+<PreviewCard
+	preview={
+		<div className="flex flex-col gap-3 w-full">
+			<Alert
+				variant="info"
+				collapsible
+				defaultOpen={false}
+			>
+				You are billed at the start of each month based on your seat count. Seats added mid-cycle are prorated. You can review your usage at any time in the Billing section of your account settings.
+			</Alert>
+			<Alert
+				variant="warning"
+				collapsible
+				defaultOpen
+			>
+				Before migrating, ensure you have exported a full backup of your data. The migration script requires Node.js 18+. Run <code className="text-xs font-mono bg-muted px-1 py-0.5 rounded">npx migrate --dry-run</code> first to preview changes.
+			</Alert>
+		</div>
+	}
+	code={`{/* Collapsed by default */}
+<Alert
+  variant="info"
+  collapsible
+  defaultOpen={false}
+>
+  You are billed at the start of each month...
+</Alert>
+
+{/* Expanded by default */}
+
+<Alert
+  variant="warning"
+  collapsible
+  defaultOpen
+>
+  Before migrating, ensure you have exported a full backup...
+</Alert>`}
+/>
+
+## Animated
+
+Set `animated` to enable a fade-in entrance animation. The animation respects `prefers-reduced-motion`.
+
+<PreviewCard
+	preview={
+		<div className="flex flex-col gap-3 w-full">
+			<Alert variant="success" animated>
+				Version 2.4.1 is live on production.
+			</Alert>
+			<Alert variant="info" animated>
+				This animated alert fades in on mount.
+			</Alert>
+		</div>
+	}
+	code={`<Alert variant="success" animated>
+  Version 2.4.1 is live on production.
+</Alert>
+
+<Alert variant="info" animated>
+  This animated alert fades in on mount.
+</Alert>`}
+/>
+
+## Custom Icons
+
+Override the default variant icon with the `icon` prop, or pass `null` to hide it entirely.
+
+<PreviewCard
+	preview={
+		<div className="flex flex-col gap-3 w-full">
+			<Alert
+				variant="info"
+				icon={<span className="text-base leading-none">💡</span>}
+			>
+				You can pin your most-used commands to the sidebar for quick access.
+			</Alert>
+			<Alert
+				variant="success"
+				icon={<span className="text-base leading-none">🚀</span>}
+			>
+				Version 2.4.1 is live on production. Rollback is available for 24 hours.
+			</Alert>
+			<Alert variant="warning" icon={null}>
+				This alert has no icon — just the title and content.
+			</Alert>
+		</div>
+	}
+	code={`{/* Custom emoji icon */}
+<Alert
+  variant="info"
+  icon={<span>💡</span>}
+>
+  You can pin your most-used commands to the sidebar.
+</Alert>
+
+{/* Hide icon entirely */}
+
+<Alert variant="warning" icon={null}>
+  This alert has no icon.
+</Alert>`}
+/>
+
+## In Context
+
+A common pattern is to place alerts above or below forms to provide contextual guidance.
+
+```tsx
+<form className="flex flex-col gap-4">
+	<Alert variant="info" title="Changing your email">
+		A verification link will be sent to your new address. Your current email
+		remains active until the new one is confirmed.
+	</Alert>
+
+	<div className="flex flex-col gap-1.5">
+		<label className="text-sm font-medium">New Email</label>
+		<Input type="email" placeholder="you@example.com" />
+	</div>
+
+	<Button variant="primary">Update Email</Button>
+</form>
+```
+
+## Migrating from Callout
+
+The `Callout` component has been merged into `Alert`. The `Callout` export is still available as a backward-compatible alias that defaults to `animated={true}` and `rounded-lg`.
+
+```tsx
+// Before (Callout)
+import { Callout } from "@work-rjkashyap/unified-ui";
+<Callout variant="info" title="Did you know?" collapsible>
+	Content here.
+</Callout>;
+
+// After (Alert) — equivalent
+import { Alert } from "@work-rjkashyap/unified-ui";
+<Alert
+	variant="info"
+	title="Did you know?"
+	collapsible
+	animated
+	className="rounded-lg"
+>
+	Content here.
+</Alert>;
+```
+
+| Callout Prop          | Alert Equivalent                     |
+| --------------------- | ------------------------------------ |
+| `variant`             | `variant` (now includes `"default"`) |
+| `title`               | `title`                              |
+| `icon`                | `icon`                               |
+| `collapsible`         | `collapsible`                        |
+| `defaultOpen`         | `defaultOpen`                        |
+| (always animated)     | `animated={true}`                    |
+| (always `rounded-lg`) | `className="rounded-lg"`             |
+
+## Props
+
+| Prop           | Type                                                        | Default            | Description                                                                     |
+| -------------- | ----------------------------------------------------------- | ------------------ | ------------------------------------------------------------------------------- |
+| `variant`      | `"info" \| "success" \| "warning" \| "danger" \| "default"` | `"info"`           | Semantic variant determining color, icon, and ARIA role.                        |
+| `title`        | `ReactNode`                                                 | —                  | Title text displayed prominently at the top.                                    |
+| `icon`         | `ReactNode \| null`                                         | Auto (per variant) | Custom icon. Pass `null` to hide.                                               |
+| `dismissible`  | `boolean`                                                   | `false`            | Whether to show a close button. Cannot combine with `collapsible`.              |
+| `onDismiss`    | `() => void`                                                | —                  | Callback when dismissed. If omitted, alert self-manages visibility.             |
+| `dismissLabel` | `string`                                                    | `"Dismiss alert"`  | Accessible label for the dismiss button.                                        |
+| `collapsible`  | `boolean`                                                   | `false`            | Whether the body can be toggled open/closed. Cannot combine with `dismissible`. |
+| `defaultOpen`  | `boolean`                                                   | `true`             | Initial open state when `collapsible` is true.                                  |
+| `animated`     | `boolean`                                                   | `false`            | Animate entrance with `fadeIn` Framer Motion preset.                            |
+| `role`         | `"alert" \| "status"`                                       | Auto (per variant) | ARIA role. Danger/warning default to `"alert"`, others `"status"`.              |
+| `className`    | `string`                                                    | —                  | Additional CSS classes merged on the root element.                              |
+| `children`     | `ReactNode`                                                 | —                  | Description / body content.                                                     |
+
+## Motion
+
+- **Animated entrance** — `fadeIn` preset with `opacity: 0 → 1` and subtle translate. Opt-in via `animated` prop.
+- **Collapsible** — `expandHeight` preset for smooth height transitions when toggling open/close.
+- **Chevron rotation** — Smooth 180° rotation on the collapsible toggle indicator.
+- All animations respect `prefers-reduced-motion` — disabled automatically when the user prefers reduced motion.
+
+## Accessibility
+
+- **Danger** and **warning** alerts use `role="alert"` (assertive live region) — screen readers announce them immediately.
+- **Info**, **success**, and **default** alerts use `role="status"` (polite live region) — announced at the next opportunity.
+- Each variant renders a unique icon so meaning is **never conveyed by color alone** (WCAG 1.4.1).
+- The dismiss button has a configurable `aria-label` (defaults to `"Dismiss alert"`).
+- Collapsible header uses `aria-expanded` for screen readers and responds to `Enter` / `Space`.
+- Icons are decorative and marked with `aria-hidden="true"`.
+- The chevron icon is `aria-hidden="true"`.
+
+## Design Tokens
+
+| Token             | Usage                        |
+| ----------------- | ---------------------------- |
+| `--info-muted`    | Info variant background      |
+| `--success-muted` | Success variant background   |
+| `--warning-muted` | Warning variant background   |
+| `--danger-muted`  | Danger variant background    |
+| `--muted`         | Default variant background   |
+| `--border`        | Default variant border       |
+| `--radius-md`     | Border radius (`rounded-md`) |
+| `--radius-lg`     | Callout alias radius         |
+| `--duration-fast` | Transition speed             |

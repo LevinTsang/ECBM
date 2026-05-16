@@ -1,0 +1,405 @@
+---
+title: Textarea
+description: A multi-line text input with auto-resize, character count, and validation states.
+icon: NotepadText
+---
+
+import { Textarea } from "@work-rjkashyap/unified-ui";
+import { Callout } from "fumadocs-ui/components/callout";
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";
+
+## Overview
+
+The `Textarea` component is a production-ready multi-line text input. It supports 3 validation variants, 3 sizes, auto-resize, character counting, and all standard HTML textarea attributes.
+
+---
+
+## Installation
+
+Install the component via the CLI in one command.
+
+<Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
+<Tab value="npm">
+
+```bash
+npx @work-rjkashyap/unified-ui add textarea
+```
+
+</Tab>
+<Tab value="pnpm">
+
+```bash
+pnpm dlx @work-rjkashyap/unified-ui add textarea
+```
+
+</Tab>
+<Tab value="yarn">
+
+```bash
+npx @work-rjkashyap/unified-ui add textarea
+```
+
+</Tab>
+<Tab value="bun">
+
+```bash
+bunx @work-rjkashyap/unified-ui add textarea
+```
+
+</Tab>
+</Tabs>
+
+<Callout type="info">
+	If you haven't initialized your project yet, run `npx @work-rjkashyap/unified-ui init` first. See the [CLI docs](/docs/cli) for details.
+</Callout>
+
+## Or install the full package
+
+Use this approach if you prefer to install the entire design system as a dependency instead of copying individual components.
+
+<Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
+<Tab value="npm">
+
+```bash
+npm install @work-rjkashyap/unified-ui
+```
+
+</Tab>
+<Tab value="pnpm">
+
+```bash
+pnpm add @work-rjkashyap/unified-ui
+```
+
+</Tab>
+<Tab value="yarn">
+
+```bash
+yarn add @work-rjkashyap/unified-ui
+```
+
+</Tab>
+<Tab value="bun">
+
+```bash
+bun add @work-rjkashyap/unified-ui
+```
+
+</Tab>
+</Tabs>
+
+## Anatomy
+
+```tsx
+import { Textarea } from "@work-rjkashyap/unified-ui";
+```
+
+## Examples
+
+### Variants
+
+<PreviewCard
+	preview={
+		<div className="flex flex-col gap-4 w-full max-w-xs">
+			<Textarea variant="default" placeholder="Default" />
+			<Textarea variant="error" placeholder="Error — validation failed" />
+			<Textarea
+				variant="success"
+				placeholder="Success — validation passed"
+			/>
+		</div>
+	}
+	code={`<Textarea variant="default" placeholder="Default" />
+<Textarea variant="error" placeholder="Error — validation failed" />
+<Textarea variant="success" placeholder="Success — validation passed" />`}
+/>
+
+### Sizes
+
+<PreviewCard
+	preview={
+		<div className="flex flex-col gap-4 w-full max-w-xs">
+			<Textarea size="sm" placeholder="Small" />
+			<Textarea size="md" placeholder="Medium (default)" />
+			<Textarea size="lg" placeholder="Large" />
+		</div>
+	}
+	code={`<Textarea size="sm" placeholder="Small" />
+<Textarea size="md" placeholder="Medium (default)" />
+<Textarea size="lg" placeholder="Large" />`}
+/>
+
+| Size | Font Size | Padding |
+| ---- | --------- | ------- |
+| `sm` | 12px      | 8px     |
+| `md` | 14px      | 12px    |
+| `lg` | 14px      | 14px    |
+
+### Auto Resize
+
+<PreviewCard
+	preview={
+		<div className="flex flex-col gap-4 w-full max-w-xs">
+			<Textarea autoResize placeholder="Grows indefinitely — start typing..." />
+			<Textarea autoResize maxHeight={150} placeholder="Grows up to 150px, then scrolls..." />
+		</div>
+	}
+	code={`{/* Grows indefinitely */}
+<Textarea autoResize placeholder="Start typing..." />
+
+{/* Grows up to 150px, then scrolls */}
+
+<Textarea autoResize maxHeight={150} placeholder="Start typing..." />`}
+/>
+
+### Character Count
+
+<PreviewCard
+	preview={
+		<div className="flex flex-col gap-4 w-full max-w-xs">
+			<Textarea
+				showCount
+				maxLength={200}
+				placeholder="Write a short bio..."
+			/>
+			<Textarea
+				showCount
+				maxLength={100}
+				placeholder="Brief description..."
+			/>
+		</div>
+	}
+	code={`<Textarea showCount maxLength={200} placeholder="Write a short bio..." />
+<Textarea showCount maxLength={100} placeholder="Brief description..." />`}
+/>
+
+### States
+
+<PreviewCard
+	preview={
+		<div className="flex flex-col gap-4 w-full max-w-xs">
+			<Textarea placeholder="Enabled" />
+			<Textarea disabled placeholder="Disabled" />
+			<Textarea
+				readOnly
+				defaultValue="This is a read-only textarea value that cannot be edited by the user."
+			/>
+		</div>
+	}
+	code={`<Textarea placeholder="Enabled" />
+<Textarea disabled placeholder="Disabled" />
+<Textarea readOnly value="This is a read-only textarea value." />`}
+/>
+
+### Custom Rows
+
+<PreviewCard
+	preview={
+		<div className="flex flex-col gap-4 w-full max-w-xs">
+			<Textarea rows={2} placeholder="2 rows" />
+			<Textarea rows={4} placeholder="4 rows (default)" />
+			<Textarea rows={6} placeholder="6 rows" />
+		</div>
+	}
+	code={`<Textarea rows={2} placeholder="2 rows" />
+<Textarea rows={4} placeholder="4 rows (default)" />
+<Textarea rows={6} placeholder="6 rows" />`}
+/>
+
+### With Error Message
+
+<PreviewCard
+	preview={
+		<div className="flex flex-col gap-1.5 w-full max-w-xs">
+			<label
+				htmlFor="bio-textarea"
+				className="text-sm font-medium text-foreground"
+			>
+				Bio
+			</label>
+			<Textarea
+				id="bio-textarea"
+				variant="error"
+				placeholder="Tell us about yourself..."
+				aria-describedby="bio-error"
+			/>
+			<span id="bio-error" className="block text-xs text-danger">
+				Bio must be at least 20 characters long.
+			</span>
+		</div>
+	}
+	code={`<label htmlFor="bio-textarea" className="text-sm font-medium">
+  Bio
+</label>
+<Textarea
+  id="bio-textarea"
+  variant="error"
+  placeholder="Tell us about yourself..."
+  aria-describedby="bio-error"
+/>
+<p id="bio-error" className="text-xs text-danger">
+  Bio must be at least 20 characters long.
+</p>`}
+/>
+
+### With Success Message
+
+<PreviewCard
+	preview={
+		<div className="flex flex-col gap-1.5 w-full max-w-xs">
+			<label
+				htmlFor="bio-success"
+				className="text-sm font-medium text-foreground"
+			>
+				Bio
+			</label>
+			<Textarea
+				id="bio-success"
+				variant="success"
+				defaultValue="Full-stack developer passionate about design systems and developer experience."
+				aria-describedby="bio-success-msg"
+			/>
+			<span
+				id="bio-success-msg"
+				className="block text-xs text-success"
+			>
+				Bio looks great!
+			</span>
+		</div>
+	}
+	code={`<label htmlFor="bio-success" className="text-sm font-medium">
+  Bio
+</label>
+<Textarea
+  id="bio-success"
+  variant="success"
+  value="Full-stack developer passionate about design systems..."
+  aria-describedby="bio-success-msg"
+/>
+<p id="bio-success-msg" className="text-xs text-success">
+  Bio looks great!
+</p>`}
+/>
+
+### Combined Features
+
+<PreviewCard
+	preview={
+		<div className="flex flex-col gap-5 w-full max-w-sm">
+			<div className="flex flex-col gap-1.5">
+				<label className="text-sm font-medium text-foreground">
+					Quick Note
+				</label>
+				<Textarea
+					size="sm"
+					rows={2}
+					placeholder="Add a quick note..."
+				/>
+			</div>
+			<div className="flex flex-col gap-1.5">
+				<label className="text-sm font-medium text-foreground">
+					Description
+				</label>
+				<Textarea
+					autoResize
+					showCount
+					maxLength={500}
+					placeholder="Describe your project in detail..."
+				/>
+			</div>
+			<div className="flex flex-col gap-1.5">
+				<label className="text-sm font-medium text-foreground">
+					Feedback
+				</label>
+				<Textarea
+					size="lg"
+					variant="error"
+					showCount
+					maxLength={300}
+					placeholder="What could be improved?"
+					aria-describedby="feedback-error"
+				/>
+				<span className="block text-xs text-danger">
+					Feedback must be at least 10 characters.
+				</span>
+			</div>
+		</div>
+	}
+	code={`{/* Small note field */}
+<Textarea size="sm" rows={2} placeholder="Add a quick note..." />
+
+{/* Auto-resize with character count */}
+
+<Textarea
+	autoResize
+	showCount
+	maxLength={500}
+	placeholder="Describe your project in detail..."
+/>
+
+{/* Large error state with count */}
+
+<Textarea
+  size="lg"
+  variant="error"
+  showCount
+  maxLength={300}
+  placeholder="What could be improved?"
+/>
+<p className="text-xs text-danger">
+  Feedback must be at least 10 characters.
+</p>`}
+/>
+
+---
+
+## Props
+
+| Prop         | Type                                | Default     | Description                                                     |
+| ------------ | ----------------------------------- | ----------- | --------------------------------------------------------------- |
+| `variant`    | `"default" \| "error" \| "success"` | `"default"` | Visual variant for validation state.                            |
+| `size`       | `"sm" \| "md" \| "lg"`              | `"md"`      | Size affecting font size and padding.                           |
+| `autoResize` | `boolean`                           | `false`     | Whether the textarea grows with content.                        |
+| `maxHeight`  | `number`                            | —           | Maximum height in pixels when `autoResize` is enabled.          |
+| `showCount`  | `boolean`                           | `false`     | Whether to display a character counter.                         |
+| `maxLength`  | `number`                            | —           | Maximum character limit (enforced natively + shown in counter). |
+| `disabled`   | `boolean`                           | `false`     | Disables the textarea.                                          |
+| `readOnly`   | `boolean`                           | `false`     | Makes the textarea read-only.                                   |
+| `rows`       | `number`                            | —           | Number of visible text lines (standard HTML attribute).         |
+| `className`  | `string`                            | —           | Additional CSS classes for the textarea element.                |
+
+All standard `<textarea>` HTML attributes are also supported.
+
+---
+
+## Accessibility
+
+<Callout type="info">
+	Always pair error/success variants with descriptive text linked via
+	`aria-describedby` for screen reader users.
+</Callout>
+
+- **Error variant** automatically sets `aria-invalid="true"` unless explicitly overridden.
+- Use `aria-describedby` to link the textarea to error/helper text elements.
+- Disabled textareas set both the `disabled` attribute and `aria-disabled`.
+- Focus ring is visible on keyboard navigation only (`focus-visible`).
+- The character counter is associated with the textarea for screen reader announcement.
+- Read-only textareas use a muted background to visually differentiate from editable state.
+
+---
+
+## Design Tokens
+
+The Textarea uses the following design system tokens:
+
+| Token                            | Usage                            |
+| -------------------------------- | -------------------------------- |
+| `--border`              | Default border color             |
+| `--danger`              | Error variant border             |
+| `--success`             | Success variant border           |
+| `--muted-foreground`    | Placeholder text color           |
+| `--disabled`            | Disabled background              |
+| `--disabled-foreground` | Disabled text color              |
+| `--radius-md`                 | Border radius                    |
+| `--duration-fast`             | Transition speed for focus/hover |
+| `--easing-standard`             | Easing curve for transitions     |

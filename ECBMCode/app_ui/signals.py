@@ -21,6 +21,10 @@ class SharedSignals(QObject):
         app_quitting(): 应用即将退出信号。
         config_changed(str, object): 配置变更信号（配置键，新值）。
         language_changed(str): 语言切换信号（区域名称，如"zh_CN"）。
+        theme_changed(str): 主题切换信号（携带"dark"或"light"）。
+        size_changed(dict): 尺寸重算完成信号（携带尺寸字典）。
+        tool_changed(str): 当前活跃工具变更信号（携带tool_id）。
+        source_loaded(str): 内容源加载完成信号（携带源路径或URL）。
     """
 
     # 私有单例实例
@@ -34,6 +38,14 @@ class SharedSignals(QObject):
     config_changed = pyqtSignal(str, object)
     # 语言切换信号：locale_name（str）
     language_changed = pyqtSignal(str)
+    # 主题切换信号：actual_theme_name（str，"dark"或"light"）
+    theme_changed = pyqtSignal(str)
+    # 尺寸重算完成信号：sizes（dict）
+    size_changed = pyqtSignal(dict)
+    # 当前活跃工具变更信号：tool_id（str）
+    tool_changed = pyqtSignal(str)
+    # 内容源加载完成信号：source（str，路径或URL）
+    source_loaded = pyqtSignal(str)
 
     def __new__(cls) -> "SharedSignals":
         """创建或返回信号单例实例。
@@ -48,9 +60,9 @@ class SharedSignals(QObject):
     def __init__(self) -> None:
         """初始化共享信号实例。
 
-        使用hasattr守卫确保仅初始化一次。
-        QObject.__init__在单例场景下可多次调用。
+        QObject.__init__必须先行调用以确保hasattr守卫正常工作。
         """
+        super().__init__()
+
         if not hasattr(self, "_signals_initialized"):
-            super().__init__()
             self._signals_initialized: bool = True

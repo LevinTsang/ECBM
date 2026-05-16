@@ -1,0 +1,763 @@
+---
+title: Components
+description: 75+ production-ready, accessible React components built on the Unified UI token system.
+icon: Box
+---
+
+import { Callout } from "fumadocs-ui/components/callout";
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";
+
+## Overview
+
+Unified UI ships **75+ composite components** that compose the design system's tokens, theme, and primitives into production-ready interactive elements. Every component is:
+
+- **Token-driven** — All colors, spacing, radii, and motion come from CSS custom properties.
+- **Accessible** — Built on [Radix UI](https://www.radix-ui.com/) primitives with full WCAG AA compliance.
+- **Variant-composed** — Uses [CVA](https://cva.style/) (class-variance-authority) for type-safe variant APIs.
+- **Ref-forwarding** — Every component forwards refs for imperative access.
+- **Theme-aware** — Automatically adapts to light/dark mode via CSS variables.
+- **Motion-ready** — Framer Motion presets built-in, respecting `prefers-reduced-motion`.
+- **Two distribution modes** — Install the npm package _or_ copy individual components with the CLI.
+
+---
+
+## Installation
+
+Unified UI supports two distribution modes — install the full npm package **or** copy individual components into your project with the CLI. Choose the approach that fits your workflow.
+
+### Option A: Copy & Paste CLI
+
+Use the CLI to add individual components to your project. You own the source, can customize freely, and the CLI resolves all dependencies automatically.
+
+#### Initial setup
+
+Before adding components, initialize your project config and path aliases:
+
+<Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
+<Tab value="npm">
+
+```bash
+npx @work-rjkashyap/unified-ui init
+```
+
+</Tab>
+<Tab value="pnpm">
+
+```bash
+pnpm dlx @work-rjkashyap/unified-ui init
+```
+
+</Tab>
+<Tab value="yarn">
+
+```bash
+npx @work-rjkashyap/unified-ui init
+```
+
+</Tab>
+<Tab value="bun">
+
+```bash
+bunx @work-rjkashyap/unified-ui init
+```
+
+</Tab>
+</Tabs>
+
+#### Add components
+
+Add one or more components by name. The CLI copies the source files into your project and installs any required npm dependencies.
+
+<Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
+<Tab value="npm">
+
+```bash
+# Add a single component
+npx @work-rjkashyap/unified-ui add button
+
+# Add multiple components at once
+npx @work-rjkashyap/unified-ui add button card badge tabs dialog
+
+# Add all available components
+npx @work-rjkashyap/unified-ui add --all
+```
+
+</Tab>
+<Tab value="pnpm">
+
+```bash
+pnpm dlx @work-rjkashyap/unified-ui add button
+
+pnpm dlx @work-rjkashyap/unified-ui add button card badge tabs dialog
+
+pnpm dlx @work-rjkashyap/unified-ui add --all
+```
+
+</Tab>
+<Tab value="yarn">
+
+```bash
+npx @work-rjkashyap/unified-ui add button
+
+npx @work-rjkashyap/unified-ui add button card badge tabs dialog
+
+npx @work-rjkashyap/unified-ui add --all
+```
+
+</Tab>
+<Tab value="bun">
+
+```bash
+bunx @work-rjkashyap/unified-ui add button
+
+bunx @work-rjkashyap/unified-ui add button card badge tabs dialog
+
+bunx @work-rjkashyap/unified-ui add --all
+```
+
+</Tab>
+</Tabs>
+
+Then import from your local project:
+
+```tsx
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+```
+
+#### Overwrite existing files
+
+If you've previously added a component and want to pull the latest version, use the `--overwrite` flag:
+
+<Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
+<Tab value="npm">
+
+```bash
+npx @work-rjkashyap/unified-ui add button --overwrite
+```
+
+</Tab>
+<Tab value="pnpm">
+
+```bash
+pnpm dlx @work-rjkashyap/unified-ui add button --overwrite
+```
+
+</Tab>
+<Tab value="yarn">
+
+```bash
+npx @work-rjkashyap/unified-ui add button --overwrite
+```
+
+</Tab>
+<Tab value="bun">
+
+```bash
+bunx @work-rjkashyap/unified-ui add button --overwrite
+```
+
+</Tab>
+</Tabs>
+
+#### List & diff
+
+Check what's available and compare your local files against the registry:
+
+```bash
+# List all available components in the registry
+npx @work-rjkashyap/unified-ui list
+
+# Compare your local component against the latest registry version
+npx @work-rjkashyap/unified-ui diff button
+```
+
+#### CLI commands reference
+
+| Command                  | Description                                           |
+| ------------------------ | ----------------------------------------------------- |
+| `init`                   | Initialize project config and path aliases            |
+| `add <name...>`          | Add one or more components with dependency resolution |
+| `add --all`              | Add all available components                          |
+| `add <name> --overwrite` | Overwrite an existing local component                 |
+| `list`                   | List all available registry items                     |
+| `diff <name>`            | Compare local file against the registry version       |
+
+<Callout type="info">
+	The CLI automatically resolves and installs all dependencies — other
+	components, utilities, and npm packages. See the [CLI docs](/docs/cli) for
+	the full reference.
+</Callout>
+
+---
+
+### Option B: Full npm Package
+
+Use this approach if you prefer a traditional library install. All components are available immediately — no CLI setup required.
+
+<Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
+<Tab value="npm">
+
+```bash
+npm install @work-rjkashyap/unified-ui
+```
+
+</Tab>
+<Tab value="pnpm">
+
+```bash
+pnpm add @work-rjkashyap/unified-ui
+```
+
+</Tab>
+<Tab value="yarn">
+
+```bash
+yarn add @work-rjkashyap/unified-ui
+```
+
+</Tab>
+<Tab value="bun">
+
+```bash
+bun add @work-rjkashyap/unified-ui
+```
+
+</Tab>
+</Tabs>
+
+Import the stylesheet in your app's entry point (e.g. `layout.tsx` or `globals.css`):
+
+```tsx
+import "@work-rjkashyap/unified-ui/styles.css";
+```
+
+Then import components directly:
+
+```tsx
+import { Button, Input, Card, Dialog } from "@work-rjkashyap/unified-ui";
+```
+
+Or use layer-specific imports for better tree-shaking:
+
+```tsx
+import { Button, Input } from "@work-rjkashyap/unified-ui/components";
+import { spacing, radius } from "@work-rjkashyap/unified-ui/tokens";
+import { DSThemeProvider } from "@work-rjkashyap/unified-ui/theme";
+import { slideUp } from "@work-rjkashyap/unified-ui/motion";
+import { cn } from "@work-rjkashyap/unified-ui/utils";
+```
+
+---
+
+### Comparison: CLI vs npm Package
+
+| Feature           | npm Package                           | Copy & Paste CLI                     |
+| ----------------- | ------------------------------------- | ------------------------------------ |
+| **Installation**  | `npm i @work-rjkashyap/unified-ui`    | `npx @work-rjkashyap/unified-ui add` |
+| **Code location** | `node_modules/`                       | Your project (`src/components/ui/`)  |
+| **Updates**       | `npm update`                          | `diff` + `add --overwrite`           |
+| **Customization** | Override via `className` / variants   | Edit source directly                 |
+| **Bundle size**   | Tree-shaken by bundler                | Only what you add                    |
+| **Type safety**   | Full `.d.ts` declarations             | Full source with types               |
+| **Best for**      | Teams wanting zero-config consistency | Teams wanting full control           |
+
+<Callout type="info">
+	Both approaches use the same design tokens and CSS custom properties. You
+	can even mix them — install the package for most components and copy a few
+	that you need to customize heavily.
+</Callout>
+
+---
+
+## Component Catalog
+
+### Form Controls (21 components)
+
+Interactive elements for capturing user input.
+
+<Cards>
+	<Card
+		title="Button"
+		description="4 variants, 3 sizes, loading state, icon support, polymorphic."
+		href="/components/button"
+	/>
+	<Card
+		title="Input"
+		description="Text input with icons, clearable, error/success validation states."
+		href="/components/input"
+	/>
+	<Card
+		title="Input Group"
+		description="Composed input with prefix/suffix icons and left/right text addons."
+		href="/components/input-group"
+	/>
+	<Card
+		title="Textarea"
+		description="Multi-line input with auto-resize and character count."
+		href="/components/textarea"
+	/>
+	<Card
+		title="Checkbox"
+		description="Checkbox with label, description, indeterminate, and group support."
+		href="/components/checkbox"
+	/>
+	<Card
+		title="Radio"
+		description="Radio group with standard and card variants."
+		href="/components/radio"
+	/>
+	<Card
+		title="Select"
+		description="Dropdown select with groups, labels, and keyboard navigation."
+		href="/components/select"
+	/>
+	<Card
+		title="Switch"
+		description="Toggle switch with spring animation and label support."
+		href="/components/switch"
+	/>
+	<Card
+		title="Label"
+		description="Accessible label with required indicator, sizing, and description text."
+		href="/components/label"
+	/>
+	<Card
+		title="Form Field"
+		description="Composable field wrapper: label + control + description + error message."
+		href="/components/form-field"
+	/>
+	<Card
+		title="Toggle"
+		description="Pressable on/off button for toolbar actions like bold, italic, mute."
+		href="/components/toggle"
+	/>
+	<Card
+		title="Toggle Group"
+		description="Single or multi-select group of toggle buttons with roving keyboard nav."
+		href="/components/toggle-group"
+	/>
+	<Card
+		title="Slider"
+		description="Range slider with single/dual thumb, step marks, tooltip, and spring animations."
+		href="/components/slider"
+	/>
+	<Card
+		title="Number Input"
+		description="Numeric stepper with +/− buttons, keyboard nav, min/max clamping, and digit roll animation."
+		href="/components/number-input"
+	/>
+	<Card
+		title="Pin Input"
+		description="OTP/PIN code input with auto-advance, paste support, and shake-on-error animation."
+		href="/components/pin-input"
+	/>
+	<Card
+		title="Search Input"
+		description="Search field with debounce, animated clear button, loading state, and keyboard shortcut hint."
+		href="/components/search-input"
+	/>
+	<Card
+		title="Combobox"
+		description="Searchable select / autocomplete with single and multi-select, grouped options, and animated dropdown."
+		href="/components/combobox"
+	/>
+	<Card
+		title="Date Picker"
+		description="Date or date-range input with calendar popover, locale formatting, clearable input, and animated transitions."
+		href="/components/date-picker"
+	/>
+	<Card
+		title="Calendar"
+		description="Month/year grid calendar with single and range selection, keyboard navigation, and animated month transitions."
+		href="/components/calendar"
+	/>
+	<Card
+		title="File Upload"
+		description="Drag-and-drop file upload zone with file list, progress tracking, image preview thumbnails, and stagger animations."
+		href="/components/file-upload"
+	/>
+	<Card
+		title="Color Picker"
+		description="A color selection component with spectrum picker, hue slider, HEX input, and preset swatches."
+		href="/components/color-picker"
+	/>
+</Cards>
+
+### Data Display (18 components)
+
+Components for presenting information and content.
+
+<Cards>
+	<Card
+		title="Badge"
+		description="8 semantic variants, dot indicator, avatar/icon slots, removable/dismissible, animated entrance, polymorphic."
+		href="/components/badge"
+	/>
+	<Card
+		title="Avatar"
+		description="Image with fallback, initials, status dot, and group stacking."
+		href="/components/avatar"
+	/>
+	<Card
+		title="Card"
+		description="4 variants including interactive, with header/body/footer slots."
+		href="/components/card"
+	/>
+	<Card
+		title="Table"
+		description="Data table with sorting, density options, and alignment."
+		href="/components/table"
+	/>
+	<Card
+		title="Data Table"
+		description="Full-featured table with TanStack Table: sorting, filtering, and pagination."
+		href="/components/data-table"
+	/>
+	<Card
+		title="Skeleton"
+		description="Loading placeholders in text, circle, and rect shapes."
+		href="/components/skeleton"
+	/>
+	<Card
+		title="Stat"
+		description="KPI card with animated count-up value, trend indicator, and sparkline slot."
+		href="/components/stat"
+	/>
+	<Card
+		title="Data List"
+		description="Semantic key-value pair list with horizontal/vertical layouts and stagger animation."
+		href="/components/data-list"
+	/>
+	<Card
+		title="Timeline"
+		description="Vertical timeline with icons, status colors, and stagger slide animations."
+		href="/components/timeline"
+	/>
+	<Card
+		title="Kbd"
+		description="Keyboard shortcut display in a styled monospaced element with inset shadow."
+		href="/components/kbd"
+	/>
+	<Card
+		title="Code"
+		description="InlineCode and CodeBlock with copy button, line numbers, filename, and dark variant."
+		href="/components/code"
+	/>
+	<Card
+		title="Carousel"
+		description="Horizontal/vertical carousel with animated slides, arrows, dots, and autoplay."
+		href="/components/carousel"
+	/>
+	<Card
+		title="Aspect Ratio"
+		description="Constrains child content to a given aspect ratio. Ideal for images, videos, and responsive media containers."
+		href="/components/aspect-ratio"
+	/>
+	<Card
+		title="Chart"
+		description="A card wrapper for Recharts with consistent design system theming, pre-configured color palette, and responsive sizing."
+		href="/components/chart"
+	/>
+	<Card
+		title="Data Table Toolbar"
+		description="A composable toolbar with search, faceted filters, column visibility toggle, and view mode switcher for DataTable."
+		href="/components/data-table-toolbar"
+	/>
+	<Card
+		title="Image Gallery"
+		description="A responsive grid of images with an interactive lightbox viewer featuring zoom, keyboard navigation, and thumbnail strip."
+		href="/components/image-gallery"
+	/>
+	<Card
+		title="Markdown"
+		description="Renders markdown strings into styled HTML with design system prose styling, supporting headings, lists, code blocks, and more."
+		href="/components/markdown"
+	/>
+	<Card
+		title="Video Player"
+		description="A styled video component with custom play/pause, mute, seek, and fullscreen controls, poster image, and keyboard shortcuts."
+		href="/components/video-player"
+	/>
+</Cards>
+
+### Feedback (9 components)
+
+Components for communicating status and information to users.
+
+<Cards>
+	<Card
+		title="Alert"
+		description="5 semantic variants with auto icons, dismissible, collapsible, animated entrance, accessible roles."
+		href="/components/alert"
+	/>
+	<Card
+		title="Banner"
+		description="Full-width dismissible announcement banner with top/bottom/inline positioning and slide animation."
+		href="/components/banner"
+	/>
+	<Card
+		title="Toast"
+		description="Stackable notifications with 5 positions and action support."
+		href="/components/toast"
+	/>
+	<Card
+		title="Tooltip"
+		description="Lightweight info popup with arrow, delay, and 4-side placement."
+		href="/components/tooltip"
+	/>
+	<Card
+		title="Progress"
+		description="Linear progress bar with indeterminate, striped, labeled, and 6 color variants."
+		href="/components/progress"
+	/>
+	<Card
+		title="Spinner"
+		description="Animated loading spinner with Framer Motion, 4 sizes, and reduced-motion support."
+		href="/components/spinner"
+	/>
+	<Card
+		title="Empty State"
+		description="Placeholder for empty lists and views with animated icon, title, description, and CTA slot."
+		href="/components/empty-state"
+	/>
+	<Card
+		title="Copy Button"
+		description="Click-to-copy icon button with clipboard-to-checkmark animation and tooltip."
+		href="/components/copy-button"
+	/>
+	<Card
+		title="Sonner"
+		description="Stacked toast notification system with promise/loading states, built on the sonner library with Unified UI styling."
+		href="/components/sonner"
+	/>
+</Cards>
+
+### Overlay (9 components)
+
+Components that render above the page content.
+
+<Cards>
+	<Card
+		title="Dialog"
+		description="Modal dialog with 4 sizes, focus trap, and slot composition."
+		href="/components/dialog"
+	/>
+	<Card
+		title="Alert Dialog"
+		description="Blocking modal that requires explicit user action. Cannot be dismissed by clicking the overlay."
+		href="/components/alert-dialog"
+	/>
+	<Card
+		title="Confirm Dialog"
+		description="Pre-composed confirmation dialog with danger variant and loading state."
+		href="/components/confirm-dialog"
+	/>
+	<Card
+		title="Sheet"
+		description="Slide-out panel from any edge with size options."
+		href="/components/sheet"
+	/>
+	<Card
+		title="Popover"
+		description="Floating content panel with arrow and close button."
+		href="/components/popover"
+	/>
+	<Card
+		title="Hover Card"
+		description="Rich preview card on hover with spring animation. Ideal for user profiles and link previews."
+		href="/components/hover-card"
+	/>
+	<Card
+		title="Dropdown Menu"
+		description="Context menu with items, checkboxes, radios, and submenus."
+		href="/components/dropdown-menu"
+	/>
+	<Card
+		title="Context Menu"
+		description="Right-click context menu built on Radix UI."
+		href="/components/context-menu"
+	/>
+	<Card
+		title="Drawer"
+		description="A bottom drawer with native-feeling drag-to-dismiss interaction. Built on vaul with snap points, multiple sizes, and composable slot components."
+		href="/components/drawer"
+	/>
+</Cards>
+
+### Navigation (13 components)
+
+Components for moving between views and content sections.
+
+<Cards>
+	<Card
+		title="Tabs"
+		description="3 visual variants with animated indicator and vertical support."
+		href="/components/tabs"
+	/>
+	<Card
+		title="Accordion"
+		description="Collapsible sections with single/multiple expand modes."
+		href="/components/accordion"
+	/>
+	<Card
+		title="Breadcrumb"
+		description="Navigation trail with separator, ellipsis, and custom items."
+		href="/components/breadcrumb"
+	/>
+	<Card
+		title="Pagination"
+		description="Page navigation with smart ellipsis and compact variant."
+		href="/components/pagination"
+	/>
+	<Card
+		title="Collapsible"
+		description="Animated show/hide section with smooth Framer Motion height transitions."
+		href="/components/collapsible"
+	/>
+	<Card
+		title="Scroll Area"
+		description="Custom scrollbar container for consistent cross-browser scroll appearance."
+		href="/components/scroll-area"
+	/>
+	<Card
+		title="Navigation Menu"
+		description="Accessible top-level navigation with dropdown panels and keyboard support."
+		href="/components/navigation-menu"
+	/>
+	<Card
+		title="Menubar"
+		description="Desktop application-style menubar with nested menus."
+		href="/components/menubar"
+	/>
+	<Card
+		title="Steps"
+		description="Step indicator for multi-stage flows with active, completed, and upcoming states."
+		href="/components/steps"
+	/>
+	<Card
+		title="Command"
+		description="Command palette with fuzzy search, groups, and keyboard navigation."
+		href="/components/command"
+	/>
+	<Card
+		title="Sidebar"
+		description="Collapsible app sidebar with sections, icons, animated width transitions, and mobile overlay."
+		href="/components/sidebar"
+	/>
+	<Card
+		title="Tree View"
+		description="An expandable tree structure with checkable nodes, custom icons, keyboard navigation, and smooth animations."
+		href="/components/tree-view"
+	/>
+	<Card
+		title="Infinite Scroll"
+		description="Scroll-triggered infinite loading with Intersection Observer, loading indicator, and end-of-list detection."
+		href="/components/infinite-scroll"
+	/>
+</Cards>
+
+### Layout (3 components)
+
+Structural components for building adjustable, responsive layouts.
+
+<Cards>
+	<Card
+		title="Separator"
+		description="Visual divider between content sections with horizontal/vertical orientation, label support, and 4 style variants."
+		href="/components/separator"
+	/>
+	<Card
+		title="Resizable"
+		description="Resizable split panels with drag handle for adjustable horizontal and vertical layouts."
+		href="/components/resizable"
+	/>
+	<Card
+		title="Virtual List"
+		description="A performant virtualized list that only renders visible items, supporting thousands of rows with smooth scrolling."
+		href="/components/virtual-list"
+	/>
+</Cards>
+
+### Utility (2 components)
+
+Low-level building blocks and accessibility helpers.
+
+<Cards>
+	<Card
+		title="Visually Hidden"
+		description="Screen-reader-only content wrapper that hides elements visually while keeping them accessible."
+		href="/components/visually-hidden"
+	/>
+	<Card
+		title="Theme Toggle"
+		description="A light/dark/system mode switcher with icon and segmented variants. Headless and controlled — works with any theme provider."
+		href="/components/theme-toggle"
+	/>
+</Cards>
+
+---
+
+## Common Patterns
+
+### Variant + Size API
+
+Most components follow a consistent `variant` + `size` API powered by CVA:
+
+```tsx
+<Button variant="primary" size="md">Save</Button>
+<Input variant="error" size="sm" />
+<Badge variant="success" size="md">Active</Badge>
+<Badge variant="primary" size="sm" animated>React</Badge>
+<Slider variant="primary" size="md" defaultValue={[50]} />
+```
+
+### Data Attributes
+
+Every component renders `data-ds-*` attributes for styling hooks and debugging:
+
+```html
+<button
+	data-ds
+	data-ds-component="button"
+	data-ds-variant="primary"
+	data-ds-size="md"
+>
+	Save
+</button>
+```
+
+### Slot Composition
+
+Complex components use a slot-based pattern with sub-components:
+
+```tsx
+<Card>
+	<CardHeader>Title</CardHeader>
+	<CardBody>Content</CardBody>
+	<CardFooter>
+		<Button size="sm">Action</Button>
+	</CardFooter>
+</Card>
+```
+
+### Motion & Reduced Motion
+
+All animated components use Framer Motion presets and respect `prefers-reduced-motion` automatically:
+
+```tsx
+{/* Animations play normally */}
+<Spinner />
+<Collapsible />
+<PinInput length={6} error />
+
+{/* All animations are automatically disabled when:
+    @media (prefers-reduced-motion: reduce) */}
+```
+
+<Callout type="info">
+	Each component page includes live examples, all variants, props
+	documentation, keyboard interaction tables, motion notes, and accessibility
+	guidelines. When using the copy-paste CLI, each component can be added
+	individually with `npx @work-rjkashyap/unified-ui add <name>`.
+</Callout>

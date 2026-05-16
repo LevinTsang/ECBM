@@ -1,0 +1,344 @@
+---
+title: Navigation Menu
+description: A top-level navigation bar with animated dropdown panels, card-style links, and full keyboard navigation. Built on Radix UI.
+icon: Navigation
+---
+
+import {
+	NavigationMenu,
+	NavigationMenuList,
+	NavigationMenuItem,
+	NavigationMenuTrigger,
+	NavigationMenuContent,
+	NavigationMenuLink,
+	NavigationMenuCardLink,
+} from "@work-rjkashyap/unified-ui";
+import { Callout } from "fumadocs-ui/components/callout";
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";
+
+## Overview
+
+`NavigationMenu` is a top-level site navigation component with animated dropdown panels. Built on Radix UI's NavigationMenu primitive, it supports card-style link items with icon, title, and description — ideal for marketing and docs site navbars.
+
+---
+
+## Installation
+
+Install the component via the CLI in one command.
+
+<Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
+<Tab value="npm">
+
+```bash
+npx @work-rjkashyap/unified-ui add navigation-menu
+```
+
+</Tab>
+<Tab value="pnpm">
+
+```bash
+pnpm dlx @work-rjkashyap/unified-ui add navigation-menu
+```
+
+</Tab>
+<Tab value="yarn">
+
+```bash
+npx @work-rjkashyap/unified-ui add navigation-menu
+```
+
+</Tab>
+<Tab value="bun">
+
+```bash
+bunx @work-rjkashyap/unified-ui add navigation-menu
+```
+
+</Tab>
+</Tabs>
+
+<Callout type="info">
+	If you haven't initialized your project yet, run `npx @work-rjkashyap/unified-ui init` first. See the [CLI docs](/docs/cli) for details.
+</Callout>
+
+## Or install the full package
+
+Use this approach if you prefer to install the entire design system as a dependency instead of copying individual components.
+
+<Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
+<Tab value="npm">
+
+```bash
+npm install @work-rjkashyap/unified-ui
+```
+
+</Tab>
+<Tab value="pnpm">
+
+```bash
+pnpm add @work-rjkashyap/unified-ui
+```
+
+</Tab>
+<Tab value="yarn">
+
+```bash
+yarn add @work-rjkashyap/unified-ui
+```
+
+</Tab>
+<Tab value="bun">
+
+```bash
+bun add @work-rjkashyap/unified-ui
+```
+
+</Tab>
+</Tabs>
+
+## Anatomy
+
+```tsx
+import {
+	NavigationMenu,
+	NavigationMenuList,
+	NavigationMenuItem,
+	NavigationMenuTrigger,
+	NavigationMenuContent,
+	NavigationMenuLink,
+	NavigationMenuCardLink,
+} from "@work-rjkashyap/unified-ui";
+```
+
+## Examples
+
+### Basic with Dropdown
+
+<PreviewCard
+	preview={
+		<NavigationMenu>
+			<NavigationMenuList>
+				<NavigationMenuItem>
+					<NavigationMenuTrigger>Components</NavigationMenuTrigger>
+					<NavigationMenuContent>
+						<ul className="grid grid-cols-2 gap-1 p-3 w-[480px]">
+							<NavigationMenuCardLink
+								href="#"
+							/>
+							<NavigationMenuCardLink
+								href="#"
+							/>
+							<NavigationMenuCardLink
+								href="#"
+							/>
+							<NavigationMenuCardLink
+								href="#"
+							/>
+						</ul>
+					</NavigationMenuContent>
+				</NavigationMenuItem>
+				<NavigationMenuItem>
+					<NavigationMenuTrigger>Resources</NavigationMenuTrigger>
+					<NavigationMenuContent>
+						<ul className="grid gap-1 p-3 w-[300px]">
+							<NavigationMenuCardLink
+								href="#"
+							/>
+							<NavigationMenuCardLink
+								href="#"
+							/>
+							<NavigationMenuCardLink
+								href="#"
+							/>
+						</ul>
+					</NavigationMenuContent>
+				</NavigationMenuItem>
+				<NavigationMenuItem>
+					<NavigationMenuLink href="#">Pricing</NavigationMenuLink>
+				</NavigationMenuItem>
+				<NavigationMenuItem>
+					<NavigationMenuLink href="#">Blog</NavigationMenuLink>
+				</NavigationMenuItem>
+			</NavigationMenuList>
+		</NavigationMenu>
+	}
+	code={`<NavigationMenu>
+  <NavigationMenuList>
+    <NavigationMenuItem>
+      <NavigationMenuTrigger>Components</NavigationMenuTrigger>
+      <NavigationMenuContent>
+        <ul className="grid grid-cols-2 gap-1 p-3 w-[480px]">
+          <NavigationMenuCardLink
+            href="/components/button"
+          />
+          <NavigationMenuCardLink
+            href="/components/input"
+          />
+          <NavigationMenuCardLink
+            href="/components/dialog"
+          />
+          <NavigationMenuCardLink
+            href="/components/card"
+          />
+        </ul>
+      </NavigationMenuContent>
+    </NavigationMenuItem>
+    <NavigationMenuItem>
+      <NavigationMenuLink href="/pricing">Pricing</NavigationMenuLink>
+    </NavigationMenuItem>
+    <NavigationMenuItem>
+      <NavigationMenuLink href="/blog">Blog</NavigationMenuLink>
+    </NavigationMenuItem>
+  </NavigationMenuList>
+</NavigationMenu>`}
+/>
+
+### Plain Links Only
+
+<PreviewCard
+	preview={
+		<NavigationMenu>
+			<NavigationMenuList>
+				<NavigationMenuItem>
+					<NavigationMenuLink href="#" active>Home</NavigationMenuLink>
+				</NavigationMenuItem>
+				<NavigationMenuItem>
+					<NavigationMenuLink href="#">About</NavigationMenuLink>
+				</NavigationMenuItem>
+				<NavigationMenuItem>
+					<NavigationMenuLink href="#">Services</NavigationMenuLink>
+				</NavigationMenuItem>
+				<NavigationMenuItem>
+					<NavigationMenuLink href="#">Contact</NavigationMenuLink>
+				</NavigationMenuItem>
+			</NavigationMenuList>
+		</NavigationMenu>
+	}
+	code={`<NavigationMenu>
+  <NavigationMenuList>
+    <NavigationMenuItem>
+      <NavigationMenuLink href="/" active>Home</NavigationMenuLink>
+    </NavigationMenuItem>
+    <NavigationMenuItem>
+      <NavigationMenuLink href="/about">About</NavigationMenuLink>
+    </NavigationMenuItem>
+    <NavigationMenuItem>
+      <NavigationMenuLink href="/services">Services</NavigationMenuLink>
+    </NavigationMenuItem>
+    <NavigationMenuItem>
+      <NavigationMenuLink href="/contact">Contact</NavigationMenuLink>
+    </NavigationMenuItem>
+  </NavigationMenuList>
+</NavigationMenu>`}
+/>
+
+### Featured + Grid Layout
+
+<PreviewCard
+	preview={
+		<NavigationMenu>
+			<NavigationMenuList>
+				<NavigationMenuItem>
+					<NavigationMenuTrigger>Getting Started</NavigationMenuTrigger>
+					<NavigationMenuContent>
+						<div className="grid grid-cols-[1fr_1.5fr] gap-2 p-3 w-[520px]">
+							{/* Featured card */}
+							<div className="flex flex-col gap-1 rounded-md bg-gradient-to-b from-muted/60 to-muted p-4">
+								<p className="text-sm font-semibold text-foreground">Unified UI</p>
+								<p className="text-xs text-muted-foreground leading-snug">
+									A token-driven React design system with 30+ accessible components.
+								</p>
+							</div>
+							{/* Grid of links */}
+							<ul className="grid gap-1">
+								<NavigationMenuCardLink href="#" />
+								<NavigationMenuCardLink href="#" />
+								<NavigationMenuCardLink href="#" />
+							</ul>
+						</div>
+					</NavigationMenuContent>
+				</NavigationMenuItem>
+			</NavigationMenuList>
+		</NavigationMenu>
+	}
+	code={`<NavigationMenu>
+  <NavigationMenuList>
+    <NavigationMenuItem>
+      <NavigationMenuTrigger>Getting Started</NavigationMenuTrigger>
+      <NavigationMenuContent>
+        <div className="grid grid-cols-[1fr_1.5fr] gap-2 p-3 w-[520px]">
+          {/* Featured card */}
+          <div className="flex flex-col gap-1 rounded-md bg-muted p-4">
+            <p className="text-sm font-semibold">Unified UI</p>
+            <p className="text-xs text-muted-foreground">
+              A token-driven React design system with 30+ accessible components.
+            </p>
+          </div>
+          {/* Link grid */}
+          <ul className="grid gap-1">
+            <NavigationMenuCardLink href="/docs/installation" />
+            <NavigationMenuCardLink href="/docs/tokens" />
+            <NavigationMenuCardLink href="/docs/theming" />
+          </ul>
+        </div>
+      </NavigationMenuContent>
+    </NavigationMenuItem>
+  </NavigationMenuList>
+</NavigationMenu>`}
+/>
+
+---
+
+## Props
+
+### NavigationMenu
+
+| Prop            | Type                      | Default | Description                                      |
+| --------------- | ------------------------- | ------- | ------------------------------------------------ |
+| `value`         | `string`                  | —       | Controlled open state for a specific item.       |
+| `defaultValue`  | `string`                  | —       | Default open item value.                         |
+| `onValueChange` | `(value: string) => void` | —       | Callback when the open item changes.             |
+| `dir`           | `"ltr" \| "rtl"`          | —       | Reading direction.                               |
+| `orientation`   | `"horizontal" \| "vertical"` | `"horizontal"` | Orientation of the menu.             |
+| `className`     | `string`                  | —       | Additional CSS classes.                          |
+
+### NavigationMenuTrigger
+
+| Prop        | Type      | Default | Description                         |
+| ----------- | --------- | ------- | ----------------------------------- |
+| `className` | `string`  | —       | Additional CSS classes.             |
+| `disabled`  | `boolean` | `false` | Disables the trigger.               |
+
+### NavigationMenuLink
+
+| Prop        | Type      | Default | Description                                   |
+| ----------- | --------- | ------- | --------------------------------------------- |
+| `href`      | `string`  | —       | The URL the link points to.                   |
+| `active`    | `boolean` | `false` | Marks this link as the current active page.   |
+| `asChild`   | `boolean` | `false` | Render as the child element.                  |
+| `className` | `string`  | —       | Additional CSS classes.                       |
+
+### NavigationMenuCardLink
+
+| Prop          | Type        | Default | Description                                  |
+| ------------- | ----------- | ------- | -------------------------------------------- |
+| `href`        | `string`    | —       | Required. The URL the card links to.         |
+| `title`       | `string`    | —       | Required. Title text for the card.           |
+| `description` | `string`    | —       | Optional description beneath the title.     |
+| `icon`        | `ReactNode` | —       | Optional icon rendered before the title.    |
+| `active`      | `boolean`   | `false` | Marks this link as currently active.         |
+| `className`   | `string`    | —       | Additional CSS classes.                      |
+
+---
+
+## Accessibility
+
+<Callout type="info">
+  Use `NavigationMenuLink` with the `active` prop to mark the current page. This applies `aria-current="page"` automatically via Radix.
+</Callout>
+
+- **Tab** — Moves focus between top-level triggers and links.
+- **Enter / Space** — Opens a trigger's dropdown content.
+- **Arrow keys** — Navigate between triggers and between items inside an open panel.
+- **Escape** — Closes the open panel and returns focus to the trigger.
+- Radix applies `role="navigation"`, `role="menubar"`, and `aria-expanded` automatically.

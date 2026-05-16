@@ -1,0 +1,176 @@
+---
+title: Color Picker
+description: A color selection component with spectrum picker, hue slider, HEX input, and preset swatches.
+icon: Palette
+---
+
+import { ColorPicker } from "@work-rjkashyap/unified-ui";
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";
+import { Callout } from "fumadocs-ui/components/callout";
+
+## Overview
+
+The `ColorPicker` component provides an interactive color selection experience with a trigger swatch, saturation/lightness spectrum, hue slider, HEX input field, and preset color swatches.
+
+---
+
+## Installation
+
+Install the component via the CLI in one command.
+
+<Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
+<Tab value="npm">
+
+```bash
+npx @work-rjkashyap/unified-ui add color-picker
+```
+
+</Tab>
+<Tab value="pnpm">
+
+```bash
+pnpm dlx @work-rjkashyap/unified-ui add color-picker
+```
+
+</Tab>
+<Tab value="yarn">
+
+```bash
+npx @work-rjkashyap/unified-ui add color-picker
+```
+
+</Tab>
+<Tab value="bun">
+
+```bash
+bunx @work-rjkashyap/unified-ui add color-picker
+```
+
+</Tab>
+</Tabs>
+
+<Callout type="info">
+	If you haven't initialized your project yet, run `npx @work-rjkashyap/unified-ui init` first. See the [CLI docs](/docs/cli) for details.
+</Callout>
+
+## Or install the full package
+
+Use this approach if you prefer to install the entire design system as a dependency instead of copying individual components.
+
+<Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
+<Tab value="npm">
+
+```bash
+npm install @work-rjkashyap/unified-ui
+```
+
+</Tab>
+<Tab value="pnpm">
+
+```bash
+pnpm add @work-rjkashyap/unified-ui
+```
+
+</Tab>
+<Tab value="yarn">
+
+```bash
+yarn add @work-rjkashyap/unified-ui
+```
+
+</Tab>
+<Tab value="bun">
+
+```bash
+bun add @work-rjkashyap/unified-ui
+```
+
+</Tab>
+</Tabs>
+
+## Anatomy
+
+```tsx
+import { ColorPicker } from "@work-rjkashyap/unified-ui";
+```
+
+## Examples
+
+### Default
+
+<PreviewCard
+  preview={
+    <div className="flex gap-4 items-center justify-center">
+      <ColorPicker defaultValue="#3b82f6" />
+      <ColorPicker defaultValue="#ef4444" />
+      <ColorPicker defaultValue="#22c55e" />
+    </div>
+  }
+  code={`<ColorPicker defaultValue="#3b82f6" />
+<ColorPicker defaultValue="#ef4444" />
+<ColorPicker defaultValue="#22c55e" />`}
+/>
+
+### Sizes
+
+<PreviewCard
+  preview={
+    <div className="flex gap-4 items-end justify-center">
+      <ColorPicker defaultValue="#8b5cf6" size="sm" />
+      <ColorPicker defaultValue="#8b5cf6" size="md" />
+      <ColorPicker defaultValue="#8b5cf6" size="lg" />
+    </div>
+  }
+  code={`<ColorPicker defaultValue="#8b5cf6" size="sm" />
+<ColorPicker defaultValue="#8b5cf6" size="md" />
+<ColorPicker defaultValue="#8b5cf6" size="lg" />`}
+/>
+
+### Custom Presets
+
+<PreviewCard
+  preview={
+    <ColorPicker
+      defaultValue="#f97316"
+      presets={["#ef4444", "#f97316", "#eab308", "#22c55e", "#3b82f6", "#8b5cf6"]}
+    />
+  }
+  code={`<ColorPicker
+  defaultValue="#f97316"
+  presets={["#ef4444", "#f97316", "#eab308", "#22c55e", "#3b82f6", "#8b5cf6"]}
+/>`}
+/>
+
+### Disabled
+
+<PreviewCard
+  preview={
+    <ColorPicker defaultValue="#6b7280" disabled />
+  }
+  code={`<ColorPicker defaultValue="#6b7280" disabled />`}
+/>
+
+---
+
+## Props
+
+| Prop           | Type                      | Default       | Description                                    |
+| -------------- | ------------------------- | ------------- | ---------------------------------------------- |
+| `value`        | `string`                  | —             | Controlled HEX color value.                    |
+| `defaultValue` | `string`                  | `"#000000"`   | Default color for uncontrolled mode.           |
+| `onChange`      | `(color: string) => void` | —             | Callback when the color changes.               |
+| `presets`       | `string[]`                | 18 defaults   | Preset color swatches to display.              |
+| `showInput`     | `boolean`                 | `true`        | Whether to show the HEX input field.           |
+| `disabled`      | `boolean`                 | `false`       | Whether the picker is disabled.                |
+| `size`          | `"sm" \| "md" \| "lg"`   | `"md"`        | Size of the trigger swatch.                    |
+| `label`         | `string`                  | `"Choose color"` | Accessibility label for the trigger.       |
+| `className`     | `string`                  | —             | Additional CSS classes.                        |
+
+---
+
+## Accessibility
+
+- Trigger button has `aria-label`, `aria-expanded`, and `aria-haspopup` attributes.
+- Popover closes on `Escape` key and outside click.
+- Hue slider and spectrum area are keyboard navigable.
+- HEX input validates on blur.

@@ -1,0 +1,510 @@
+---
+title: Colors
+description: Color palettes, semantic mappings, and dark mode support in Unified UI.
+icon: Paintbrush
+---
+
+import { Callout } from "fumadocs-ui/components/callout";
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";
+
+## Overview
+
+Unified UI uses a two-tier color system:
+
+1. **Base palettes** — Raw color ramps from 50 → 950 (inspired by Tailwind's palette structure).
+2. **Semantic mappings** — Intent-based aliases (`primary`, `danger`, `success`, etc.) that map to specific palette stops for light and dark modes.
+
+All color values are stored as **oklch()** strings (e.g. `"oklch(0.205 0 0)"`) for perceptual uniformity and wide-gamut display support. Tailwind's opacity modifier syntax works directly: `bg-primary/50`.
+
+<Callout type="info">
+	Components never reference base palette values directly. They use semantic
+	tokens through CSS custom properties (`--primary`, `--danger`, etc.), which
+	the theme layer resolves to the correct value for the active mode.
+</Callout>
+
+---
+
+## Base Palettes
+
+Each palette provides 11 stops from `50` (lightest) to `950` (darkest). All values use the `oklch()` color space.
+
+### Brand
+
+The primary identity palette, based on an indigo scale. Used for primary actions, links, and focus states.
+
+| Stop | Value                        | Preview                                                                                                                           |
+| ---- | ---------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| 50   | `oklch(0.962 0.018 272.314)` | <span className="inline-block w-6 h-6 rounded border border-fd-border" style={{backgroundColor: "oklch(0.962 0.018 272.314)"}} /> |
+| 100  | `oklch(0.93 0.034 272.788)`  | <span className="inline-block w-6 h-6 rounded border border-fd-border" style={{backgroundColor: "oklch(0.93 0.034 272.788)"}} />  |
+| 200  | `oklch(0.87 0.065 274.039)`  | <span className="inline-block w-6 h-6 rounded border border-fd-border" style={{backgroundColor: "oklch(0.87 0.065 274.039)"}} />  |
+| 300  | `oklch(0.785 0.115 274.713)` | <span className="inline-block w-6 h-6 rounded border border-fd-border" style={{backgroundColor: "oklch(0.785 0.115 274.713)"}} /> |
+| 400  | `oklch(0.673 0.182 276.935)` | <span className="inline-block w-6 h-6 rounded border border-fd-border" style={{backgroundColor: "oklch(0.673 0.182 276.935)"}} /> |
+| 500  | `oklch(0.585 0.233 277.117)` | <span className="inline-block w-6 h-6 rounded border border-fd-border" style={{backgroundColor: "oklch(0.585 0.233 277.117)"}} /> |
+| 600  | `oklch(0.511 0.262 276.966)` | <span className="inline-block w-6 h-6 rounded border border-fd-border" style={{backgroundColor: "oklch(0.511 0.262 276.966)"}} /> |
+| 700  | `oklch(0.457 0.24 277.023)`  | <span className="inline-block w-6 h-6 rounded border border-fd-border" style={{backgroundColor: "oklch(0.457 0.24 277.023)"}} />  |
+| 800  | `oklch(0.398 0.195 277.366)` | <span className="inline-block w-6 h-6 rounded border border-fd-border" style={{backgroundColor: "oklch(0.398 0.195 277.366)"}} /> |
+| 900  | `oklch(0.359 0.144 278.697)` | <span className="inline-block w-6 h-6 rounded border border-fd-border" style={{backgroundColor: "oklch(0.359 0.144 278.697)"}} /> |
+| 950  | `oklch(0.257 0.09 281.288)`  | <span className="inline-block w-6 h-6 rounded border border-fd-border" style={{backgroundColor: "oklch(0.257 0.09 281.288)"}} />  |
+
+### Neutral (Zinc)
+
+The workhorse palette for text, borders, backgrounds, and surfaces. Uses a pure achromatic zinc scale (zero chroma).
+
+| Stop | Value              | Preview                                                                                                                 |
+| ---- | ------------------ | ----------------------------------------------------------------------------------------------------------------------- |
+| 50   | `oklch(0.985 0 0)` | <span className="inline-block w-6 h-6 rounded border border-fd-border" style={{backgroundColor: "oklch(0.985 0 0)"}} /> |
+| 100  | `oklch(0.97 0 0)`  | <span className="inline-block w-6 h-6 rounded border border-fd-border" style={{backgroundColor: "oklch(0.97 0 0)"}} />  |
+| 200  | `oklch(0.922 0 0)` | <span className="inline-block w-6 h-6 rounded border border-fd-border" style={{backgroundColor: "oklch(0.922 0 0)"}} /> |
+| 300  | `oklch(0.87 0 0)`  | <span className="inline-block w-6 h-6 rounded border border-fd-border" style={{backgroundColor: "oklch(0.87 0 0)"}} />  |
+| 400  | `oklch(0.708 0 0)` | <span className="inline-block w-6 h-6 rounded border border-fd-border" style={{backgroundColor: "oklch(0.708 0 0)"}} /> |
+| 500  | `oklch(0.556 0 0)` | <span className="inline-block w-6 h-6 rounded border border-fd-border" style={{backgroundColor: "oklch(0.556 0 0)"}} /> |
+| 600  | `oklch(0.439 0 0)` | <span className="inline-block w-6 h-6 rounded border border-fd-border" style={{backgroundColor: "oklch(0.439 0 0)"}} /> |
+| 700  | `oklch(0.371 0 0)` | <span className="inline-block w-6 h-6 rounded border border-fd-border" style={{backgroundColor: "oklch(0.371 0 0)"}} /> |
+| 800  | `oklch(0.269 0 0)` | <span className="inline-block w-6 h-6 rounded border border-fd-border" style={{backgroundColor: "oklch(0.269 0 0)"}} /> |
+| 900  | `oklch(0.205 0 0)` | <span className="inline-block w-6 h-6 rounded border border-fd-border" style={{backgroundColor: "oklch(0.205 0 0)"}} /> |
+| 950  | `oklch(0.145 0 0)` | <span className="inline-block w-6 h-6 rounded border border-fd-border" style={{backgroundColor: "oklch(0.145 0 0)"}} /> |
+
+### Additional Palettes
+
+Unified UI ships 18 palettes in total. Beyond Brand and Zinc (Neutral), the following are available for semantic and decorative use:
+
+| Palette     | Purpose                     | Key stops used             | Preview (500)                                                                                                                     |
+| ----------- | --------------------------- | -------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| **Slate**   | Cool neutral alternative    | Backgrounds, surfaces      | <span className="inline-block w-6 h-6 rounded border border-fd-border" style={{backgroundColor: "oklch(0.554 0.046 257.417)"}} /> |
+| **Gray**    | True gray neutral           | Backgrounds, surfaces      | <span className="inline-block w-6 h-6 rounded border border-fd-border" style={{backgroundColor: "oklch(0.551 0.027 264.364)"}} /> |
+| **Blue**    | Information, links          | `info` semantic color      | <span className="inline-block w-6 h-6 rounded border border-fd-border" style={{backgroundColor: "oklch(0.623 0.214 259.815)"}} /> |
+| **Green**   | Success, confirmation       | `success` semantic color   | <span className="inline-block w-6 h-6 rounded border border-fd-border" style={{backgroundColor: "oklch(0.627 0.194 149.214)"}} /> |
+| **Amber**   | Warnings, caution           | `warning` semantic color   | <span className="inline-block w-6 h-6 rounded border border-fd-border" style={{backgroundColor: "oklch(0.769 0.188 70.08)"}} />   |
+| **Red**     | Errors, destructive actions | `danger` semantic color    | <span className="inline-block w-6 h-6 rounded border border-fd-border" style={{backgroundColor: "oklch(0.704 0.191 22.216)"}} />  |
+| **Teal**    | Accent, decorative          | Illustrations, charts      | <span className="inline-block w-6 h-6 rounded border border-fd-border" style={{backgroundColor: "oklch(0.627 0.141 175.066)"}} /> |
+| **Indigo**  | Brand-aligned accent        | Badges, highlights         | <span className="inline-block w-6 h-6 rounded border border-fd-border" style={{backgroundColor: "oklch(0.585 0.233 277.117)"}} /> |
+| **Purple**  | Creative, premium features  | Tags, decorative accents   | <span className="inline-block w-6 h-6 rounded border border-fd-border" style={{backgroundColor: "oklch(0.627 0.265 303.9)"}} />   |
+| **Pink**    | Social, engagement          | Notifications, reactions   | <span className="inline-block w-6 h-6 rounded border border-fd-border" style={{backgroundColor: "oklch(0.656 0.241 354.308)"}} /> |
+| **Cyan**    | Data visualization          | Charts, metrics            | <span className="inline-block w-6 h-6 rounded border border-fd-border" style={{backgroundColor: "oklch(0.627 0.14 213.806)"}} />  |
+| **Emerald** | Nature, growth themes       | Progress indicators        | <span className="inline-block w-6 h-6 rounded border border-fd-border" style={{backgroundColor: "oklch(0.696 0.17 162.48)"}} />   |
+| **Yellow**  | Highlights, attention       | Callouts, badges           | <span className="inline-block w-6 h-6 rounded border border-fd-border" style={{backgroundColor: "oklch(0.795 0.184 86.047)"}} />  |
+| **Fuchsia** | Creative, playful accents   | Marketing, gradients       | <span className="inline-block w-6 h-6 rounded border border-fd-border" style={{backgroundColor: "oklch(0.667 0.295 322.15)"}} />  |
+| **Sky**     | Light informational         | Backgrounds, status badges | <span className="inline-block w-6 h-6 rounded border border-fd-border" style={{backgroundColor: "oklch(0.685 0.169 237.323)"}} /> |
+| **Lime**    | Positive, fresh accents     | Eco themes, progress bars  | <span className="inline-block w-6 h-6 rounded border border-fd-border" style={{backgroundColor: "oklch(0.768 0.233 130.85)"}} />  |
+
+```tsx
+import {
+	brand,
+	blue,
+	green,
+	amber,
+	red,
+	teal,
+	neutral,
+	palettes,
+} from "@work-rjkashyap/unified-ui/tokens";
+
+// Individual palette
+console.log(brand[600]); // "oklch(0.511 0.262 276.966)"
+
+// All palettes bundled (useful for tooling / documentation)
+console.log(Object.keys(palettes));
+// ["slate", "gray", "zinc", "brand", "blue", "green", "amber", "red",
+//  "teal", "indigo", "purple", "pink", "cyan", "emerald", "yellow",
+//  "fuchsia", "sky", "lime"]
+```
+
+---
+
+## Semantic Colors
+
+Semantic colors map **intent** to specific values. This indirection means you can rebrand the entire system by changing the semantic mapping — components never need to change.
+
+The current default theme uses **achromatic (neutral)** values for primary/secondary to create a clean, minimal aesthetic. Status colors (success, warning, danger, info) use chromatic palettes for clear intent signaling.
+
+<Tabs items={['Light Mode', 'Dark Mode']}>
+<Tab value="Light Mode">
+
+### Backgrounds & Surfaces
+
+| Token             | Value              | Tailwind class          | Use case                  |
+| ----------------- | ------------------ | ----------------------- | ------------------------- |
+| `background`      | `oklch(1 0 0)`     | `bg-background`         | Page background           |
+| `foreground`      | `oklch(0.145 0 0)` | `text-foreground`       | Default text color        |
+| `surface`         | `oklch(0.985 0 0)` | `bg-surface`            | Subtle surface background |
+| `surfaceRaised`   | `oklch(1 0 0)`     | `bg-surface-raised`     | Cards, elevated surfaces  |
+| `surfaceOverlay`  | `oklch(0.97 0 0)`  | `bg-surface-overlay`    | Overlay backgrounds       |
+| `muted`           | `oklch(0.97 0 0)`  | `bg-muted`              | Muted backgrounds         |
+| `mutedForeground` | `oklch(0.556 0 0)` | `text-muted-foreground` | Secondary text            |
+
+### Card & Popover
+
+| Token               | Value              | Tailwind class            | Use case            |
+| ------------------- | ------------------ | ------------------------- | ------------------- |
+| `card`              | `oklch(1 0 0)`     | `bg-card`                 | Card backgrounds    |
+| `cardForeground`    | `oklch(0.145 0 0)` | `text-card-foreground`    | Card text           |
+| `popover`           | `oklch(1 0 0)`     | `bg-popover`              | Popover backgrounds |
+| `popoverForeground` | `oklch(0.145 0 0)` | `text-popover-foreground` | Popover text        |
+
+### Primary
+
+| Token                    | Value              | Tailwind class                  | Use case                |
+| ------------------------ | ------------------ | ------------------------------- | ----------------------- |
+| `primary`                | `oklch(0.205 0 0)` | `bg-primary`                    | Primary buttons, links  |
+| `primaryForeground`      | `oklch(0.985 0 0)` | `text-primary-foreground`       | Text on primary bg      |
+| `primaryHover`           | `oklch(0.295 0 0)` | —                               | Hover state             |
+| `primaryActive`          | `oklch(0.371 0 0)` | —                               | Active/pressed state    |
+| `primaryMuted`           | `oklch(0.97 0 0)`  | `bg-primary-muted`              | Soft primary background |
+| `primaryMutedForeground` | `oklch(0.205 0 0)` | `text-primary-muted-foreground` | Text on muted primary   |
+
+### Secondary
+
+| Token                 | Value              | Tailwind class              | Use case             |
+| --------------------- | ------------------ | --------------------------- | -------------------- |
+| `secondary`           | `oklch(0.97 0 0)`  | `bg-secondary`              | Secondary buttons    |
+| `secondaryForeground` | `oklch(0.205 0 0)` | `text-secondary-foreground` | Text on secondary bg |
+| `secondaryHover`      | `oklch(0.922 0 0)` | —                           | Hover state          |
+| `secondaryActive`     | `oklch(0.87 0 0)`  | —                           | Active/pressed state |
+
+### Accent
+
+| Token              | Value              | Tailwind class           | Use case           |
+| ------------------ | ------------------ | ------------------------ | ------------------ |
+| `accent`           | `oklch(0.97 0 0)`  | `bg-accent`              | Accent backgrounds |
+| `accentForeground` | `oklch(0.205 0 0)` | `text-accent-foreground` | Accent text        |
+
+### Status Colors
+
+| Intent      | Base        | Foreground         | Muted      | Muted Foreground |
+| ----------- | ----------- | ------------------ | ---------- | ---------------- |
+| **Success** | `green.600` | `oklch(0.145 0 0)` | `green.50` | `green.700`      |
+| **Warning** | `amber.500` | `oklch(0.145 0 0)` | `amber.50` | `amber.700`      |
+| **Danger**  | `red.600`   | `oklch(0.985 0 0)` | `red.50`   | `red.700`        |
+| **Info**    | `blue.600`  | `oklch(0.985 0 0)` | `blue.50`  | `blue.700`       |
+
+### Borders & Inputs
+
+| Token              | Value              | Tailwind class          | Use case            |
+| ------------------ | ------------------ | ----------------------- | ------------------- |
+| `border`           | `oklch(0.922 0 0)` | `border-border`         | Default borders     |
+| `borderMuted`      | `oklch(0.97 0 0)`  | `border-border-muted`   | Subtle borders      |
+| `borderStrong`     | `oklch(0.708 0 0)` | `border-border-strong`  | Emphasized borders  |
+| `focusRing`        | `oklch(0.708 0 0)` | `ring-focus-ring`       | Focus indicators    |
+| `ring`             | `oklch(0.708 0 0)` | `ring-ring`             | Generic ring color  |
+| `input`            | `oklch(0.922 0 0)` | `border-input`          | Input field borders |
+| `inputForeground`  | `oklch(0.205 0 0)` | `text-input-foreground` | Input text color    |
+| `inputPlaceholder` | `oklch(0.556 0 0)` | —                       | Placeholder text    |
+
+### Disabled
+
+| Token                | Value              | Use case             |
+| -------------------- | ------------------ | -------------------- |
+| `disabled`           | `oklch(0.97 0 0)`  | Disabled backgrounds |
+| `disabledForeground` | `oklch(0.556 0 0)` | Disabled text        |
+
+</Tab>
+<Tab value="Dark Mode">
+
+### Backgrounds & Surfaces
+
+| Token             | Value              | Tailwind class          | Use case                  |
+| ----------------- | ------------------ | ----------------------- | ------------------------- |
+| `background`      | `oklch(0.145 0 0)` | `bg-background`         | Page background           |
+| `foreground`      | `oklch(0.985 0 0)` | `text-foreground`       | Default text color        |
+| `surface`         | `oklch(0.205 0 0)` | `bg-surface`            | Subtle surface background |
+| `surfaceRaised`   | `oklch(0.269 0 0)` | `bg-surface-raised`     | Cards, elevated surfaces  |
+| `surfaceOverlay`  | `oklch(0.269 0 0)` | `bg-surface-overlay`    | Overlay backgrounds       |
+| `muted`           | `oklch(0.269 0 0)` | `bg-muted`              | Muted backgrounds         |
+| `mutedForeground` | `oklch(0.708 0 0)` | `text-muted-foreground` | Secondary text            |
+
+### Card & Popover
+
+| Token               | Value              | Tailwind class            | Use case            |
+| ------------------- | ------------------ | ------------------------- | ------------------- |
+| `card`              | `oklch(0.205 0 0)` | `bg-card`                 | Card backgrounds    |
+| `cardForeground`    | `oklch(0.985 0 0)` | `text-card-foreground`    | Card text           |
+| `popover`           | `oklch(0.269 0 0)` | `bg-popover`              | Popover backgrounds |
+| `popoverForeground` | `oklch(0.985 0 0)` | `text-popover-foreground` | Popover text        |
+
+### Primary
+
+| Token                    | Value              | Tailwind class                  | Dark mode note                      |
+| ------------------------ | ------------------ | ------------------------------- | ----------------------------------- |
+| `primary`                | `oklch(0.922 0 0)` | `bg-primary`                    | Light value on dark bg for contrast |
+| `primaryForeground`      | `oklch(0.205 0 0)` | `text-primary-foreground`       | Dark text on light primary          |
+| `primaryHover`           | `oklch(0.845 0 0)` | —                               | Slightly darker on hover            |
+| `primaryActive`          | `oklch(0.768 0 0)` | —                               | Darker on active                    |
+| `primaryMuted`           | `oklch(0.269 0 0)` | `bg-primary-muted`              | Very dark muted primary             |
+| `primaryMutedForeground` | `oklch(0.922 0 0)` | `text-primary-muted-foreground` | Light text on dark muted            |
+
+### Secondary
+
+| Token                 | Value              | Tailwind class              | Use case             |
+| --------------------- | ------------------ | --------------------------- | -------------------- |
+| `secondary`           | `oklch(0.269 0 0)` | `bg-secondary`              | Secondary buttons    |
+| `secondaryForeground` | `oklch(0.985 0 0)` | `text-secondary-foreground` | Text on secondary bg |
+| `secondaryHover`      | `oklch(0.371 0 0)` | —                           | Hover state          |
+| `secondaryActive`     | `oklch(0.439 0 0)` | —                           | Active/pressed state |
+
+### Accent
+
+| Token              | Value              | Tailwind class           | Use case           |
+| ------------------ | ------------------ | ------------------------ | ------------------ |
+| `accent`           | `oklch(0.371 0 0)` | `bg-accent`              | Accent backgrounds |
+| `accentForeground` | `oklch(0.985 0 0)` | `text-accent-foreground` | Accent text        |
+
+### Status Colors
+
+| Intent      | Base        | Foreground         | Muted       | Muted Foreground |
+| ----------- | ----------- | ------------------ | ----------- | ---------------- |
+| **Success** | `green.500` | `oklch(0.145 0 0)` | `green.950` | `green.300`      |
+| **Warning** | `amber.400` | `oklch(0.145 0 0)` | `amber.950` | `amber.300`      |
+| **Danger**  | `red.500`   | `oklch(0.985 0 0)` | `red.950`   | `red.300`        |
+| **Info**    | `blue.400`  | `oklch(0.145 0 0)` | `blue.950`  | `blue.300`       |
+
+### Borders & Inputs
+
+| Token              | Value                | Tailwind class          | Use case            |
+| ------------------ | -------------------- | ----------------------- | ------------------- |
+| `border`           | `oklch(1 0 0 / 10%)` | `border-border`         | Default borders     |
+| `borderMuted`      | `oklch(0.269 0 0)`   | `border-border-muted`   | Subtle borders      |
+| `borderStrong`     | `oklch(0.556 0 0)`   | `border-border-strong`  | Emphasized borders  |
+| `focusRing`        | `oklch(0.556 0 0)`   | `ring-focus-ring`       | Focus indicators    |
+| `ring`             | `oklch(0.556 0 0)`   | `ring-ring`             | Generic ring color  |
+| `input`            | `oklch(1 0 0 / 15%)` | `border-input`          | Input field borders |
+| `inputForeground`  | `oklch(0.985 0 0)`   | `text-input-foreground` | Input text color    |
+| `inputPlaceholder` | `oklch(0.556 0 0)`   | —                       | Placeholder text    |
+
+### Disabled
+
+| Token                | Value              | Use case             |
+| -------------------- | ------------------ | -------------------- |
+| `disabled`           | `oklch(0.269 0 0)` | Disabled backgrounds |
+| `disabledForeground` | `oklch(0.439 0 0)` | Disabled text        |
+
+</Tab>
+</Tabs>
+
+---
+
+## Chart & Sidebar Colors
+
+Both light and dark modes define dedicated tokens for data visualization and sidebar UI.
+
+<Tabs items={['Light Mode', 'Dark Mode']}>
+<Tab value="Light Mode">
+
+### Chart Colors
+
+| Token    | Value                       | Use case               |
+| -------- | --------------------------- | ---------------------- |
+| `chart1` | `oklch(0.646 0.222 41.116)` | Primary data series    |
+| `chart2` | `oklch(0.6 0.118 184.704)`  | Secondary data series  |
+| `chart3` | `oklch(0.398 0.07 227.392)` | Tertiary data series   |
+| `chart4` | `oklch(0.828 0.189 84.429)` | Quaternary data series |
+| `chart5` | `oklch(0.769 0.188 70.08)`  | Quinary data series    |
+
+### Sidebar Colors
+
+| Token                      | Value              | Use case                  |
+| -------------------------- | ------------------ | ------------------------- |
+| `sidebar`                  | `oklch(0.985 0 0)` | Sidebar background        |
+| `sidebarForeground`        | `oklch(0.145 0 0)` | Sidebar text              |
+| `sidebarPrimary`           | `oklch(0.205 0 0)` | Sidebar primary accent    |
+| `sidebarPrimaryForeground` | `oklch(0.985 0 0)` | Text on sidebar primary   |
+| `sidebarAccent`            | `oklch(0.97 0 0)`  | Sidebar accent background |
+| `sidebarAccentForeground`  | `oklch(0.205 0 0)` | Sidebar accent text       |
+| `sidebarBorder`            | `oklch(0.922 0 0)` | Sidebar borders           |
+| `sidebarRing`              | `oklch(0.708 0 0)` | Sidebar focus ring        |
+
+</Tab>
+<Tab value="Dark Mode">
+
+### Chart Colors
+
+| Token    | Value                        | Use case               |
+| -------- | ---------------------------- | ---------------------- |
+| `chart1` | `oklch(0.488 0.243 264.376)` | Primary data series    |
+| `chart2` | `oklch(0.696 0.17 162.48)`   | Secondary data series  |
+| `chart3` | `oklch(0.769 0.188 70.08)`   | Tertiary data series   |
+| `chart4` | `oklch(0.627 0.265 303.9)`   | Quaternary data series |
+| `chart5` | `oklch(0.645 0.246 16.439)`  | Quinary data series    |
+
+### Sidebar Colors
+
+| Token                      | Value                        | Use case                  |
+| -------------------------- | ---------------------------- | ------------------------- |
+| `sidebar`                  | `oklch(0.205 0 0)`           | Sidebar background        |
+| `sidebarForeground`        | `oklch(0.985 0 0)`           | Sidebar text              |
+| `sidebarPrimary`           | `oklch(0.488 0.243 264.376)` | Sidebar primary accent    |
+| `sidebarPrimaryForeground` | `oklch(0.985 0 0)`           | Text on sidebar primary   |
+| `sidebarAccent`            | `oklch(0.269 0 0)`           | Sidebar accent background |
+| `sidebarAccentForeground`  | `oklch(0.985 0 0)`           | Sidebar accent text       |
+| `sidebarBorder`            | `oklch(1 0 0 / 10%)`         | Sidebar borders           |
+| `sidebarRing`              | `oklch(0.439 0 0)`           | Sidebar focus ring        |
+
+</Tab>
+</Tabs>
+
+---
+
+## Contrast Compliance
+
+All semantic color pairings are designed to meet **WCAG AA** contrast requirements:
+
+- **Normal text** (< 18px or < 14px bold): 4.5:1 minimum contrast ratio
+- **Large text** (≥ 18px or ≥ 14px bold): 3:1 minimum contrast ratio
+- **Non-text elements** (borders, icons, form controls): 3:1 minimum per SC 1.4.11
+
+### Key Decisions
+
+- **Light mode** uses a near-black primary (`oklch(0.205 0 0)`) on white for maximum contrast — a clean monochrome aesthetic.
+- **Dark mode** inverts this relationship with a near-white primary (`oklch(0.922 0 0)`) on a dark background.
+- **Status colors** use darker stops (600) in light mode and lighter stops (400–500) in dark mode to maintain legibility against their respective backgrounds.
+- **Disabled states** exceed WCAG requirements (which exempt disabled controls) with a ≥ 3:1 target for usability.
+
+### Built-in Contrast Checking
+
+Unified UI ships a contrast-checking utility you can use in tests or at build time:
+
+```tsx
+import {
+	checkHexContrast,
+	meetsAA,
+	contrastRatio,
+} from "@work-rjkashyap/unified-ui/utils";
+
+// Check a specific pair
+const result = checkHexContrast("#4F46E5", "#FFFFFF");
+console.log(result.ratio); // 6.35
+console.log(result.aa); // true (normal text)
+console.log(result.aaLarge); // true (large text)
+
+// Quick boolean check
+console.log(meetsAA(6.35, "normal")); // true
+
+// Raw ratio calculation
+console.log(contrastRatio("#000000", "#FFFFFF")); // 21
+```
+
+### Auditing All Semantic Pairs
+
+```tsx
+import {
+	auditContrast,
+	DS_LIGHT_CRITICAL_PAIRS,
+	DS_DARK_CRITICAL_PAIRS,
+} from "@work-rjkashyap/unified-ui/utils";
+
+// Audit all critical light mode pairs
+const lightResults = auditContrast(DS_LIGHT_CRITICAL_PAIRS);
+const failures = lightResults.filter((r) => !r.passes);
+
+if (failures.length > 0) {
+	console.error("Contrast failures:", failures);
+}
+```
+
+---
+
+## Usage Patterns
+
+### Backgrounds & Text
+
+```tsx
+// Page background with default text
+<div className="bg-background text-foreground">
+  <h1>Page Title</h1>
+  <p className="text-muted-foreground">Secondary description text</p>
+</div>
+
+// Card surface
+<div className="bg-surface-raised border border-border rounded-md p-4">
+  Card content
+</div>
+```
+
+### Status Colors
+
+```tsx
+// Success alert
+<div className="bg-success-muted text-success-muted-foreground">
+  Operation completed successfully.
+</div>
+
+// Danger button
+<button className="bg-danger text-danger-foreground hover:bg-danger/90">
+  Delete
+</button>
+
+// Warning badge
+<span className="bg-warning-muted text-warning-muted-foreground">
+  Caution
+</span>
+```
+
+### Opacity Modifier
+
+Because color values are complete `oklch()` values, you can use Tailwind's opacity modifier syntax directly:
+
+```tsx
+// 50% opacity primary background
+<div className="bg-primary/50" />
+
+// 20% opacity border
+<div className="border border-border/20" />
+
+// 80% opacity text
+<p className="text-foreground/80">Slightly transparent text</p>
+```
+
+### CSS Custom Properties
+
+All semantic colors are available as CSS variables for use in custom styles. Values are complete `oklch()` colors — use them directly:
+
+```css
+.custom-element {
+	background-color: var(--primary);
+	color: var(--primary-foreground);
+	border-color: var(--border);
+}
+
+/* With opacity via oklch alpha */
+.custom-overlay {
+	background-color: oklch(from var(--primary) l c h / 0.1);
+}
+```
+
+---
+
+## Importing Colors
+
+```tsx
+// Semantic mappings (what components use)
+import { semanticLight, semanticDark } from "@work-rjkashyap/unified-ui/tokens";
+
+console.log(semanticLight.primary); // "oklch(0.205 0 0)"
+console.log(semanticDark.primary); // "oklch(0.922 0 0)"
+
+// Raw palettes (for tooling, docs, custom themes)
+import {
+	brand,
+	blue,
+	green,
+	amber,
+	red,
+	neutral,
+} from "@work-rjkashyap/unified-ui/tokens";
+
+console.log(brand[600]); // "oklch(0.511 0.262 276.966)"
+console.log(red[500]); // "oklch(0.704 0.191 22.216)"
+console.log(neutral[100]); // "oklch(0.97 0 0)"
+
+// All palettes bundled
+import { palettes } from "@work-rjkashyap/unified-ui/tokens";
+
+// Includes: slate, gray, zinc, brand, blue, green, amber, red,
+// teal, indigo, purple, pink, cyan, emerald, yellow, fuchsia, sky, lime
+```
+
+<Callout type="warn">
+	**Don't use raw palette values in components.** Always use the semantic
+	tokens (`bg-primary`, not a hardcoded oklch value). Semantic tokens
+	automatically adapt to light/dark mode and can be rebranded without touching
+	component code.
+</Callout>
